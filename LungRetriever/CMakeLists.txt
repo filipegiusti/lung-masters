@@ -13,4 +13,4 @@ ENDIF(ITK_FOUND)
 
 ADD_EXECUTABLE(Segmentation Segmentation.cpp main.cpp)
 
-TARGET_LINK_LIBRARIES(Segmentation ITKCommon)
+TARGET_LINK_LIBRARIES(Segmentation ITKCommon ITKIO)
