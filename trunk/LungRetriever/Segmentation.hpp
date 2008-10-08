@@ -1,20 +1,16 @@
 #include "itkImage.h"
-#include "itkImageFileReader.h"
-#include "itkImageFileWriter.h"
-#include "itkImageIORegion.h"
 #include <iostream>
 
 using namespace std;
 
-typedef itk::Image< int, 2 > InputImageType;
-typedef itk::ImageFileReader< InputImageType > ReaderType;
-
+template <class T, unsigned int I>
 class Segmentation {
 private:
-	string *file;
+	itk::Image<T,I> *input;
 public:
-	Segmentation(string file) {
-		this->file = new string(file);
+	Segmentation(itk::Image<T,I> *input) {
+		this->input = input;
 	}
+	itk::Image<T,I>* GetOutput();
 	void doIt();
 };

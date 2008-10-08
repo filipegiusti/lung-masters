@@ -1,13 +1,13 @@
 #include "Segmentation.hpp"
 
-void Segmentation::doIt() {
-	ReaderType::Pointer reader = ReaderType::New();
+template <class T, unsigned int I>
+void Segmentation< T,I >::doIt() {
 	
-	//reader->SetFileName( file );
-	//typedef itk::GDCMImageIO           ImageIOType;
-	//ImageIOType::Pointer gdcmImageIO = ImageIOType::New();
-	//reader->SetImageIO( gdcmImageIO );
-
-	cout << file->data() << " de tamanho " << file->length() << "\n";
+		
 	return;
+}
+
+template <class T, unsigned int I>
+itk::Image< T,I >* Segmentation< T,I >::GetOutput() {
+	return input;
 }
