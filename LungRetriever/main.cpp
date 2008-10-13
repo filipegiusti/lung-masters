@@ -4,6 +4,10 @@
 #include "itkBinaryThresholdImageFilter.h"
 #include "itkNeighborhoodConnectedImageFilter.h"
 #include "itkMaskNegatedImageFilter.h"
+#include "itkVotingBinaryIterativeHoleFillingImageFilter.h"
+#include "itkBinaryErodeImageFilter.h"
+#include "itkBinaryDilateImageFilter.h"
+#include "itkBinaryBallStructuringElement.h"
 #include "Segmentation.hpp"
 
 #define IMAGE_DIMENSIONS 2
@@ -16,6 +20,10 @@ typedef itk::ImageFileWriter< ImageType > WriterType;
 typedef itk::BinaryThresholdImageFilter < ImageType, ImageType >  ThresholdFilterType;
 typedef itk::NeighborhoodConnectedImageFilter< ImageType, ImageType > ConnectedFilterType;
 typedef itk::MaskNegatedImageFilter<ImageType, ImageType, ImageType> MaskNegatedFilterType;
+typedef itk::VotingBinaryIterativeHoleFillingImageFilter< ImageType > HoleFillingType;
+typedef itk::BinaryBallStructuringElement < IMAGE_DATA, IMAGE_DIMENSIONS > StructuringElementType;
+typedef itk::BinaryErodeImageFilter < ImageType, ImageType, StructuringElementType> ErodeFilterType;
+typedef itk::BinaryDilateImageFilter < ImageType, ImageType, StructuringElementType> DilateFilterType;
 
 using namespace std;
 
@@ -106,9 +114,43 @@ int main () {
 	maskNegatedFilter->SetInput1(thresholdFilter->GetOutput());
 	maskNegatedFilter->SetInput2(neighborhoodConnected->GetOutput());
 	
+ 	HoleFillingType::Pointer holeFillingFilter = HoleFillingType::New();
+	radius[0] = 2;
+ 	radius[1] = 2;
+ 	holeFillingFilter->SetRadius(radius);
+	holeFillingFilter->SetInput(maskNegatedFilter->GetOutput());
+	holeFillingFilter->SetBackgroundValue( 1 );
+	holeFillingFilter->SetForegroundValue( 0 );
+	holeFillingFilter->SetMajorityThreshold( 2 );
+	holeFillingFilter->SetMaximumNumberOfIterations( 40 );
+	
+ 	ErodeFilterType::Pointer binaryErodeFilter = ErodeFilterType::New();
+ 	DilateFilterType::Pointer binaryDilateFilter = DilateFilterType::New();   
+ 	
+ 	StructuringElementType structuringElement;
+ 	structuringElement.SetRadius( 2 ); 
+ 	structuringElement.CreateStructuringElement();
+ 	binaryDilateFilter->SetKernel( structuringElement );
+ 	binaryErodeFilter->SetKernel( structuringElement );
+ 	
+ 	binaryDilateFilter->SetInput( holeFillingFilter->GetOutput() );
+ 	binaryErodeFilter->SetInput( binaryDilateFilter->GetOutput() );
+ 	binaryDilateFilter->SetDilateValue( 1 );
+ 	binaryErodeFilter->SetErodeValue( 1 );
+	
+	HoleFillingType::Pointer inverseHoleFillingFilter = HoleFillingType::New();
+	radius[0] = 2;
+ 	radius[1] = 2;
+ 	inverseHoleFillingFilter->SetRadius(radius);
+	inverseHoleFillingFilter->SetInput(binaryErodeFilter->GetOutput());
+	inverseHoleFillingFilter->SetBackgroundValue( 0 );
+	inverseHoleFillingFilter->SetForegroundValue( 1 );
+	inverseHoleFillingFilter->SetMajorityThreshold( 2 );
+	inverseHoleFillingFilter->SetMaximumNumberOfIterations( 10 );
+	
 	WriterType::Pointer writer = WriterType::New();
 	writer->SetFileName( "IM000011.dcm" );
-	writer->SetInput(maskNegatedFilter->GetOutput());
+	writer->SetInput(inverseHoleFillingFilter->GetOutput());
 	
 	writer->Update();
 	
