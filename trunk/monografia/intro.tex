@@ -1,0 +1,15 @@
+\chapter{Introdução}
+
+O exame de tomografia computadorizada consiste numa imagem que representa uma secção do corpo, ela é feita através da informação obtida de uma sucessão de raios-x que são posteriormente processadas por computador. Tem-se ao final do processo uma seqüência de imagens que são as fatias de uma secção do corpo. Essa seqüência de imagens contribui enormemente para o aumento de falhas humanas, pois analisar diversas imagens é um processo trabalhoso, complexo e muitas vezes tedioso. O grande número possível de combinações de padrões complexos achados nas diversas imagens, a falta de correlação fortemente estabelecida entre os achados radiológicos e patológicos e variações na forma de interpretação e descrição dos achados radiológicos, sem uma definição objetiva, são os principais fatores que resultam em grandes variações entre diagnósticos \cite{uchiyama}.
+Para desenvolver uma ferramenta capaz de auxiliar no diagnóstico baseado nessas imagens, primeiro é necessário realizar certo processamento sobre essa imagem. Apenas a parte significativa de cada uma dessas fatias precisa ser analisada e extraída, para isso realiza-se uma etapa de segmentação dos pulmões. Um dos meios que surgiram para auxiliar na segmentação e registro de imagens médicas foi o framework ITK – Insight Segmentation and Registration Toolkit. Com o qual espera-se conseguir um desenvolvimento mais rápido do software \cite{yoo}.
+Após separar a região de interesse da imagem, estamos prontos para realizar a recuperação de imagens similares à imagem do paciente, a qual exige que sejamos capazes de mensurar algumas características das imagens e ponderar quais são os melhores critérios a serem adotados para considerar que duas imagens são similares, cada tipo de imagem tem um critério com o qual obtém melhores resultados. E é neste ponto que se encontra um dos maiores desafios, pois já existem muitos métodos de extração de características, então o sucesso de qualquer projeto que precisa quantificar a similaridade entre duas imagens está em achar o melhor critério de avaliação.
+
+\section{Motivação}
+
+Tornar a avaliação de imagens de tomografia computadorizada menos subjetiva, facilitando o trabalho de médicos menos experientes. Além de fornecer uma forma rápida de comparar exames similares de diferentes pacientes, tornando mais preciso o diagnóstico. Um dos propósitos de se desenvolver uma ferramenta como essa reside no fato de que, reconhecidamente, a avaliação desse tipo de doença é um dos problemas mais difíceis no diagnóstico médico \cite{doi}, \cite{bick}.
+
+\section{Objetivos}
+
+O objetivo desse trabalho é a realização de um estudo sobre técnicas de segmentação e extração de características de imagens pulmonares de tomografia computadorizada e métodos para recuperação de imagens baseado em conteúdo, objetivando o desenvolvimento de um software capaz de auxiliar médicos no diagnóstico desse tipo de imagem.
+
+\section{Organização}
