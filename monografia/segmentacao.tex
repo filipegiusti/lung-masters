@@ -8,18 +8,36 @@ Mas o processo de segmentação é enormemente facilitado quando o domínio das 
 
 \section{Imagens de tomografia computadorizada}
 
+A tomografia era um dos mais importantes métodos de diagnóstico radiológico até a invenção da tomografia computadorizada, na década de 70 do século passado. Sendo um dos primeiros tipos de exame a se beneficiar da popularização da computação.
+
+A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades causadas por doenças ou
+acidentes \cite{oliveira}.
+
 As imagens de tomografia computadorizada são geradas a partir de diversas imagens de raio-x que são tiradas de fatias finas do paciente em diversos ângulos, como o resultado de cada pixel dessa fatia é a soma das energias bloqueadas pelos tecidos do corpo, e sabe-se exatamente em que ângulo cada fatia foi tirada, pode-se reconstruir a imagem em 2 dimensões dessa fatia. Como são geradas imagens de várias fatias, é possível uma reconstrução em 3 dimensões do corpo do paciente.
+
+% coeficiente de Hounsfield
 
 Essas imagens são geralmente de 512x512 pixels, embora alguns equipamentos possuam uma resolução de 1024x1024 pixels, cada um deles possuindo 256 níveis de cinza. O tamanho do pixel é da ordem de 1mm, podendo chegar em algumas unidades a valores em torno de 0,1mm.
 % TODO: referencia
 
-% qualidade da imagem
+\subsection{Padrão DICOM}
 
-\section{Métodos de segmentação}
+A introdução de imagens médicas digitais na década de 70 do século passado e o uso de computadores para processar estas imagens fizeram com que o American College of Radiology (ACR) e a National Electrical Manufacturers Association (NEMA) se juntassem para formar um comitê com o objetivo de criar um método padrão para a transmissão de imagens médicas e das informações associadas a elas.
 
+Este comitê, constituído em 1983, publicou seu primeiro conjunto de padrões, chamado de ACR-NEMA, em 1985, e o segundo em 1988. Até a publicação dos padrões, a maioria dos equipamentos utilizava formatos proprietários para fazer o armazenamento e comunicação de imagens.
 
+Embora as primeiras versões não tenham obtido êxito total na definição de um padrão comum, a terceira versão, publicada em 1993 sob o nome de DICOM (Digital Imaging and Communications in Medicine), conseguiu estabelecer uma forma padronizada de armazenamento e comunicação de imagens médicas e as correspondentes informações associadas.
 
-\subsection{Threshold Adaptativo}
+Com os melhoramentos promulgados por esta terceira versão, o padrão estava pronto tanto para permitir transferência de imagens médicas em um ambiente com múltiplos fabricantes como também para facilitar o desenvolvimento e a expansão dos sistemas de armazenamento e de comunicação e a conexão com os sistemas de informação médica \cite{nema}.
 
+Nos dias de hoje, a maioria dos fabricantes de equipamentos para aquisição de imagens médicas permite que os arquivos sejam exportados nesse formato, além dos formatos proprietários. Assim como a maioria dos softwares de processamento de imagens médicas também apresenta compatibilidade com esse formato.
 
+\section{Threshold Adaptativo}
 
+Threshold é um dos métodos mais simples de segmentação de imagens. A partir de uma imagem em tons de cinza, o threshold pode ser usado para torná-la binária.
+
+Durante o processo de threshold, os pixels são dividos em dois grupos, na forma mais simples de threshold, a divisão é feita dependendo apenas se o valor do pixel é maior ou menor que o valor de threshold. Então um grupo é colorido de preto e o outro de branco, tornando a imagem binária. A divisão dos grupos de pixels pode ser feita com base em mais de um valor de threshold, dessa forma os pixels são divididos entro os que estão dentro de um intervalo formado por 2 valores de threshold e os que não estão.
+
+O parâmetro chave que determina a eficiência de um threshold é o valor de threshold usado. Diversos métodos existem para a escolha do valor de threshold, ele pode ser escolhido manualmente, ou por algum algoritmo que o compute, dependendo da imagem, esse tipo de threshold mais conhecido como thresolhd automático. Um método simples é escolher o valor da media ou da mediana. Geralmente esse algoritmo só irá atingir bons resultados se a imagem de entrada possuir pouco ruído e for uniforme. Uma abordagem um pouco mais sofisticada seria gerar o histograma da intensidade dos pixels da imagem e escolher como threshold o valor de vale.
+
+A técnica de threshold adaptivo consiste em escolher um valor arbitrário de threshold, realizar o threshold e calcular o valor médio dos pixels acima e abaixo do valor de threshold. Então obter um novo threshold, o qual é a média entre esses dois valores. Com o novo threshold o processo se inicia novamente, ele só para quando se atingir a convergência, ou seja, o novo valor for igual ao antigo valor. Este algoritmo garante a convergência até um mínimo local.
