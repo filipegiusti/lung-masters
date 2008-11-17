@@ -1,27 +1,103 @@
-\documentclass{abnt}
+\documentclass[tc]{texufpel}
 
 \usepackage[brazilian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
-\usepackage{cite}
+\usepackage{subfigure}
+\usepackage{array}
+%\usepackage{abntcite}
+\usepackage{times}              % pacote para usar fonte Adobe Times
+\usepackage{mathptmx}          % p/ usar fonte Adobe Times nas fórmulas
+\usepackage{setspace}
+	\onehalfspacing
 
-\bibliographystyle{plain}
-
-\author{Filipe Giusti}
+\author{Giusti}{Filipe Vernetti}
 \title{FERRAMENTA PARA AUXÍLIO AO DIAGNÓSTICO DE IMAGENS PULMONARES DE TOMOGRAFIA COMPUTADORIZADA}
+\advisor[Prof.~Dr.]{Oliveira}{Lucas Ferrari}
+
+\date{Dezembro}{2008}
+%\course{Curso de Especialização em Cachaça}
+%\location{Itaquaquecetuba}{SP}}
+
+\renewcommand{\nominata}{
+        UNIVERSIDADE FEDERAL DE PELOTAS\\
+        Reitor: Prof.~Dr.~Cesar Borges\\
+        Coordenador do curso: Prof.~Dr.~Lucas Ferrari Oliveira\\
+}
+
+\keyword{processamento de imagens}
+\keyword{tomografia computadorizada}
+\keyword{pulmão}
+% TODO: keywords
 
 \begin{document}
 
 \maketitle
 
+% TODO: examinadores
+\examiner{Prof.~Dr.~Armando Multas}
+\examiner{Prof\textsuperscript{a}.~Dr\textsuperscript{a}.~Nomelinda Longuinha da Silva Paes Netto}
+\examiner{Prof.~MSc.~Gerúndio das Dores}
+\makeexaminers
+
+% frase de efeito
+% TODO: frase de efeito
+\clearpage
+\begin{flushright}
+\mbox{}\vfill
+{\sffamily\itshape
+``If I have seen farther than others,\\
+it is because I stood on the shoulders of giants.''\\}
+--- \textsc{Sir~Isaac Newton}
+\end{flushright}
+
+% agradecimentos
+% TODO: agradecimentos
+\chapter*{Agradecimentos}
+Agradeço ao \LaTeX\ por não ter vírus de macro\ldots
+
+% Dedicatoria
+% TODO: dedicatoria
+\chapter*{Dedicatoria}
+Dedico esse trabalho a mim.
+
+% TODO: resumo
+\begin{abstract}
+Este documento é um exemplo de como formatar documentos para o
+Instituto de Física e Matemática da UFPEL usando as classes \LaTeX\@. Ao mesmo tempo, pode servir de consulta
+para comandos mais genéricos. \emph{O texto do resumo não deve
+conter mais do que 500 palavras.}
+\end{abstract}
+
+% TODO: resumo ingles
+\begin{englishabstract}{Using \LaTeX\ to Prepare Documents at IFM/UFPEL}{Electronic document preparation, \LaTeX, ABNT, UFPEL}
+This document is an example on how to prepare documents at IFM/UFPEL
+using the \LaTeX\ classes provided by the UTUG\@. At the same time, it
+may serve as a guide for general-purpose commands. \emph{The text in
+the abstract should not contain more than 500~words.}
+\end{englishabstract}
+
 \listoffigures
 \listoftables
+
+\begin{listofabbrv}{SPMD}
+        \item[TC] Tomografia Computadorizada
+	\item[UH] Unidade Hounsfield
+\end{listofabbrv}
+
+%\begin{listofsymbols}{$\alpha\beta\pi\omega$}
+%       \item[$\sum{\frac{a}{b}}$] Somatório do produtório
+%       \item[$\alpha\beta\pi\omega$] Fator de inconstância do resultado
+%\end{listofsymbols}
+
 \tableofcontents
 
 \include{intro}
 \include{segmentacao}
 
+% TODO: arrumar referencias
+\bibliographystyle{abnt-alf}
 \bibliography{referencias}
 
 \end{document}
