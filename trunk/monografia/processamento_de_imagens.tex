@@ -8,17 +8,17 @@ Em geral, os sistemas de processamento de imagens médicas extraem informações
 
 \section{Imagens de tomografia computadorizada}
 
-A tomografia era um dos mais importantes métodos de diagnóstico radiológico até a invenção da tomografia computadorizada, na década de 70 do século passado. Sendo um dos primeiros tipos de exame a se beneficiar da popularização da computação.
+A tomografia era um dos mais importantes métodos de diagnóstico radiológico até a invenção da tomografia computadorizada - TC, na década de 70 do século passado. Sendo um dos primeiros tipos de exame a se beneficiar da popularização da computação.
 
 A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades causadas por doenças ou acidentes \cite{oliveira}.
 
-As máquinas de tomografia computadorizada possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de tomografia computadorizada a fonte e os detectores de raios x são movidos para posições pre-determinadas e então obtem diversas imagens, como demonstrado \ref{fig:tc1}, as quais representam fatias finas do paciente.
+As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de TC a fonte e os detectores de raios x são movidos para posições pre-determinadas e então obtem diversas imagens, como demonstrado \ref{fig:tc1}, as quais representam fatias finas do paciente.
 
 \begin{figure}[ht]
  \begin{center}
   \includegraphics{imagens/tc.jpg}
  \end{center}
- \caption{Demonstração de como uma máquina de tomografia computadorizada obtem as fatias de imagem do paciente.}
+ \caption{Demonstração de como uma máquina de TC obtém as fatias de imagem do paciente.}
 % TODO: referencia = http://www.sprawls.org/resources/CTIMG/classroom.htm
  \label{fig:tc1}
 \end{figure}
@@ -43,14 +43,14 @@ Essas imagens são geralmente de 512x512 pixels, embora alguns equipamentos poss
 
 \subsection{Coeficiente de Hounsfield}
 
-A escala da unidade hounsfield é uma transformação linear da medida do coeficiente de atenuação linear original, do qual a radiodensidade da água destilada a temperatura e pressão ambientes é definida como 0 unidades Hounsfield, enquanto a radiodensidade do ar a temperatura e pressão ambientes é -1000 unidades Hounsfield. Para um material X com coeficiente de atenuação $\mu$X, o correspondente valor em unidades Hounsfiled é dado por \ref{equa:hounsfield}.
+A escala da unidade hounsfield - UH - é uma transformação linear da medida do coeficiente de atenuação linear original, do qual a radiodensidade da água destilada a temperatura e pressão ambientes é definida como 0 UH, enquanto a radiodensidade do ar a temperatura e pressão ambientes é -1000 UH. Para um material X com coeficiente de atenuação $\mu$X, o correspondente valor em unidades Hounsfiled é dado por \ref{equa:hounsfield}.
 
 \begin{equation}
 	\frac{\mu_X-\mu_{H_2O}}{\mu_{H_2O}-\mu_{ar}}\times 1000
 	\label{equa:hounsfield}
 \end{equation}
 
-onde $\mu_{H_2O}$ e $\mu_{ar}$ são os coeficientes de atenuação linear da água e do ar, respectivamente, a pressão e temperatura ambientes. Então uma mudança de uma unidade Hounsfield representa uma mudança de 0,1\% da diferença do coeficiente de atenuação entre a água e o ar, ou aproximadamente 0,1\% do coeficiente de atenuação da água, já que o coeficiente de atenuação do ar é aproximadamente 0. Alguns valores Hounsfield conhecidos estão mostrados na \ref{tab:hounsfield}.
+onde $\mu_{H_2O}$ e $\mu_{ar}$ são os coeficientes de atenuação linear da água e do ar, respectivamente, a pressão e temperatura ambientes. Então uma mudança de uma UH representa uma mudança de 0,1\% da diferença do coeficiente de atenuação entre a água e o ar, ou aproximadamente 0,1\% do coeficiente de atenuação da água, já que o coeficiente de atenuação do ar é aproximadamente 0. Alguns valores Hounsfield conhecidos estão mostrados na \ref{tab:hounsfield}.
 
 \begin{table}
  \label{tab:hounsfield}
@@ -81,7 +81,7 @@ onde $\mu_{H_2O}$ e $\mu_{ar}$ são os coeficientes de atenuação linear da ág
 O olho humano tem a capacidade de diferenciar uma escala de cinzas de 10 a 60 tons (a maioria das pessoas distingue 20 diferentes tons), enquanto na tomografia há no mínimo 2000 tons. A técnica de janelas é na verdade uma forma de mostrar apenas uma faixa de tons de cinza que nos interessa, de forma a adaptar a nossa capacidade de visão aos dados obtidos pelo tomógrafo.
 %TODO: referencia
 
-Precisamos definir os valores máximo e mínimo da janela, para mapear os valores em unidades Hounsfield em níveis de cinza. Todos os valores abaixo do valor mínimo serão mapeados como preto e todos acima do máximo como branco. Para definir estes valores, especificamos o tamanho da janela em unidades Hounsfield e o centro dela, como podemos ver em \ref{fig:tc_janela}.
+Precisamos definir os valores máximo e mínimo da janela, para mapear os valores em UH em níveis de cinza. Todos os valores abaixo do valor mínimo serão mapeados como preto e todos acima do máximo como branco. Para definir estes valores, especificamos o tamanho da janela em UH e o centro dela, como podemos ver em \ref{fig:tc_janela}.
 
 \begin{figure}[ht]
  \begin{center}
@@ -155,7 +155,7 @@ A técnica de threshold adaptivo, que pode ser vista em \ref{fig:threshold}, con
   \subfigure[Imagem original]{\includegraphics[width=2.9in]{imagens/TCpulmao.png}}
   \subfigure[Depois do threshold adaptativo]{\includegraphics[width=2.9in]{imagens/TCpulmaoTHRESHOLDED.png}}
  \end{center}
- \caption{Imagem de tomografia computadorizada original e após a aplicação de threshold adaptativo.}
+ \caption{Imagem de TC original e após a aplicação de threshold adaptativo.}
  \label{fig:threshold}
 \end{figure}
 
@@ -163,7 +163,7 @@ A técnica de threshold adaptivo, que pode ser vista em \ref{fig:threshold}, con
 
 Morfologia é o estudo da forma. Em processamento de imagens, morfologia matemática é o nome que se dá a um conjunto de métodos, inicialmente desenvolvidos por Georges Matheron e Jean Serra  em 1964, que têm em comum o objetivo de estudar a estrutura geométrica de uma imagem.
 
-A linguagem utilizada na morfologia matemática é a teoria dos conjuntos. Conjuntos na morfologia matemática representam objetos numa imagem. Por exemplo, o conjunto de todos os pixels pretos numa imagem binária é uma descrição morfologica completa da image. Em imagens binárias, os conjuntos em questão são membros do espaço dos inteiros em duas dimensões $Z^2$, onde cada elemento do conjunto é uma tupla cujas coordenadas são as coordenadas de um pixel preto na image. Imagens em tons de cinza podem ser representadas como conjuntos cujos componentes estão em $Z^3$. Neste caso, dois componentes de cada elemento do conjunto se referem as coordenadas do pixel, e o terceiro corresponde ao valor do seu nível de cinza. Conjuntos em espaços dimensionais ainda mais elevados podem conter outros atributos da imagem, como cor ou componentes que variam com o tempo \cite{gonzalez}.
+A linguagem utilizada na morfologia matemática é a teoria dos conjuntos. Conjuntos na morfologia matemática representam objetos numa imagem. Por exemplo, o conjunto de todos os pixels pretos numa imagem binária é uma descrição morfologica completa da image. Em imagens binárias, os conjuntos em questão são membros do espaço dos inteiros bidimensional - 2D - $Z^2$, onde cada elemento do conjunto é uma tupla cujas coordenadas são as coordenadas de um pixel preto na image. Imagens em tons de cinza podem ser representadas como conjuntos cujos componentes estão em $Z^3$. Neste caso, dois componentes de cada elemento do conjunto se referem as coordenadas do pixel, e o terceiro corresponde ao valor do seu nível de cinza. Conjuntos em espaços dimensionais ainda mais elevados podem conter outros atributos da imagem, como cor ou componentes que variam com o tempo \cite{gonzalez}.
 
 Então temos a morfologia binária que se aplica sobre imagens binárias e a morfologia cinza que se aplica a imagens em níveis de cinza. Uma operação morfológica binária é completamente determinada a partir da vizinhaça examinada ao redor do ponto central e do algoritmo utilizado, Já na morfologia cinza, na vizinhança de cada pixel, ou numa parte da vizinhança, é necessário conhecer o valor do pixel mais escuro, e o valor do mais claro. O valor do pixel resultando corresponde a uma combinação particular desses dois. Portanto o tamanho e a forma da vizinhança, as regiões de pesquisa dos valores máximo e minímo e o algoritmo utilizado, determinam uma operação de morfologia cinza \cite{facon}.
 
@@ -212,7 +212,7 @@ Efeitos da dilatação:
   \subfigure[Dilatação]{\includegraphics[width=2.9in]{imagens/dilatacao.png}\label{fig:dilatacao}}
   \subfigure[Erosão]{\includegraphics[width=2.9in]{imagens/erosao.png}\label{fig:erosao}}
  \end{center}
- \caption{Imagem de tomografia computadorizada após passar por threshold adaptativo e limpeza, submetida a dilatação e erosão utilizando como elemento estruturante um círculo de raio 3 pixels.}
+ \caption{Imagem de TC após passar por threshold adaptativo e limpeza, submetida a dilatação e erosão utilizando como elemento estruturante um círculo de raio 3 pixels.}
  \label{fig:erosao_dilatacao}
 \end{figure}
 
@@ -231,7 +231,7 @@ Já o fechamento é o inverso; dilatação, seguida de erosão. Ele conecta part
   \subfigure[Abertura]{\includegraphics[width=2.9in]{imagens/abertura.png}\label{fig:abertura}}
   \subfigure[Fechamento]{\includegraphics[width=2.9in]{imagens/fechamento.png}\label{fig:fechamento}}
  \end{center}
- \caption{Imagem de tomografia computadorizada após passar por threshold adaptativo, submetida a abertura e fechamento utilizando como elemento estruturante um círculo de raio 6 pixels.}
+ \caption{Imagem de TC após passar por threshold adaptativo, submetida a abertura e fechamento utilizando como elemento estruturante um círculo de raio 6 pixels.}
  \label{fig:abertura_fechamento}
 \end{figure}
 
@@ -262,8 +262,59 @@ Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a dis
 
 Para poder ser utilizada, a matriz de co-ocorrência precisa ser normalizada, que poder ser obtida dividindo cada elemento da matriz pelo número total de pares de pixel.
 
-Percebemos que o deslocamento ($\Delta{}x,\Delta{}y$) faz com que a matriz de co-ocorrência seja sensível a rotação. Dessa forma, uma rotação da imagem diferente de 180 graus irá resultar numa matriz de co-ocorrência diferente para uma mesma imagem (rotacionada). Isso é raramente desejado nas aplicações em que a matriz de co-ocorrência é usada, portanto a matriz de co-ocorrência é geralmente formada usando um conjunto de deslocamentos que variam até 180 graus com uma mesma distância entre eles (por exemplo 0, 45, 90 e 135 graus) para não ser influenciada pela rotação.
+Percebemos que o deslocamento ($\Delta{}x,\Delta{}y$) faz com que a matriz de co-ocorrência seja sensível a rotação. Dessa forma, uma rotação da imagem diferente de 180 graus irá resultar numa matriz de co-ocorrência diferente para uma mesma imagem (rotacionada). Isso é raramente desejado nas aplicações em que a matriz de co-ocorrência é usada, portanto a matriz de co-ocorrência é geralmente usada a partir da média em cada valor da matriz para um conjunto de deslocamentos que variam até 180 graus com uma mesma distância entre eles (por exemplo 0, 45, 90 e 135 graus) para não ser influenciada pela rotação.
 
 \subsection{Características de Haralick}
 
-\cite{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser usadas para classificar imagens de textura.
+\cite{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser usadas para classificar imagens de textura. Abaixo estão descritas algumas delas.
+
+Considere N como sendo o número de níveis de cinza da matriz de co-ocorrência e.
+
+A Energia, também conhecida como segundo momento angular, avalia a uniformidade textural em uma imagem. A fórmula que descreve a energia pode ser vista em \ref{equa:hara-energia}.
+
+\begin{equation}
+ \sum_{i=0}^{N-1}\sum_{j=0}^{N-1} C(i,j)^2
+ \label{equa:hara-energia}
+\end{equation}
+
+A Entropia mede a desordem em uma imagem, ou seja, o grau de dispersão de níveis de cinza. Ela é calculada como em \ref{equa:hara-entropia}.
+
+\begin{equation}
+ -\sum_{i=0}^{N-1}\sum_{j=0}^{N-1} C(i,j) \; log(C(i,j))
+ \label{equa:hara-entropia}
+\end{equation}
+
+O contraste, mede a presença de transição abrupta de níveis de cinza (bordas) na imagem. Ele é definido como a equação \ref{equa:hara-contraste}
+
+\begin{equation}
+ \sum_{x=0}^{N-1} x^2 \left\{\sum_{i=0}^{N-1}\sum_{j=0}^{N-1} C(i,j)\right\},|i - j| = x
+ \label{equa:hara-contraste}
+\end{equation}
+
+A homogeneidade local, também conhecido como momento diferencial inverso, como o próprio nome sugere, mede a homogeneidade da imagem. Sua fórmula é a equação \ref{equa:hara-homogeneidade}.
+
+\begin{equation}
+ \sum_{i=0}^{N-1}\sum_{j=0}^{N-1} \frac{1}{1 + (i - j)^2} \;C(i,j)
+ \label{equa:hara-homogeneidade}
+\end{equation}
+
+A correlação mede a dependência linear de um nível de cinza em relação aos vizinhos. Ela é calculada como em \ref{equa:hara-correlação}.
+
+\begin{equation}
+ \frac{\sum\limits_{i=0}^{N-1}\sum\limits_{j=0}^{N-1} i j\; C(i,j) - \mu_{i}^2}{\sigma_{i}^2}
+ \label{equa:hara-correlação}
+\end{equation}
+
+Onde $\mu_{i}$ representa a média ponderada, como definido em \ref{equa:hara-media}. Por causa da simetria da matriz de co-ocorrência, não é necessário calcular a média ponderada de $\mu_{j}$. Já $\sigma_{i}$ representa o desvio padrão, como na equação \ref{equa:hara-desvio}, que também se beneficia da simetria.
+
+\begin{equation}
+ \sum_{j=0}^{N-1}\sum_{i=0}^{N-1} i \cdot C(i, j)
+ \label{equa:hara-media}
+\end{equation}
+
+\begin{equation}
+ \sum_{j=0}^{N-1}\sum_{i=0}^{N-1} (i - \mu_{i})^2 \cdot C(i, j)
+ \label{equa:hara-desvio}
+\end{equation}
+
+Além dessas características, também estão definidas em \cite{Haralick}: soma dos quadrados, soma da média, soma da variância, soma da entropia, variância diferencial, entropia diferencial, medida de informação da correlação e coeficiente de correlação máxima.
