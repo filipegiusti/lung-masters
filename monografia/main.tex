@@ -17,8 +17,6 @@
 \advisor[Prof.~Dr.]{Oliveira}{Lucas Ferrari}
 
 \date{Dezembro}{2008}
-%\course{Curso de Especialização em Cachaça}
-%\location{Itaquaquecetuba}{SP}}
 
 \renewcommand{\nominata}{
         UNIVERSIDADE FEDERAL DE PELOTAS\\
@@ -26,10 +24,14 @@
         Coordenador do curso: Prof.~Dr.~Lucas Ferrari Oliveira\\
 }
 
+% TODO: keywords
 \keyword{processamento de imagens}
 \keyword{tomografia computadorizada}
 \keyword{pulmão}
-% TODO: keywords
+
+% Desencorajar fortemente a hifenização, já que não é permitido
+\hyphenpenalty=6000
+\tolerance=1000
 
 \begin{document}
 
@@ -41,42 +43,8 @@
 \examiner{Prof.~MSc.~Gerúndio das Dores}
 \makeexaminers
 
-% frase de efeito
-% TODO: frase de efeito
-\clearpage
-\begin{flushright}
-\mbox{}\vfill
-{\sffamily\itshape
-``If I have seen farther than others,\\
-it is because I stood on the shoulders of giants.''\\}
---- \textsc{Sir~Isaac Newton}
-\end{flushright}
-
-% agradecimentos
-% TODO: agradecimentos
-\chapter*{Agradecimentos}
-Agradeço ao \LaTeX\ por não ter vírus de macro\ldots
-
-% Dedicatoria
-% TODO: dedicatoria
-\chapter*{Dedicatoria}
-Dedico esse trabalho a mim.
-
-% TODO: resumo
-\begin{abstract}
-Este documento é um exemplo de como formatar documentos para o
-Instituto de Física e Matemática da UFPEL usando as classes \LaTeX\@. Ao mesmo tempo, pode servir de consulta
-para comandos mais genéricos. \emph{O texto do resumo não deve
-conter mais do que 500 palavras.}
-\end{abstract}
-
-% TODO: resumo ingles
-\begin{englishabstract}{Using \LaTeX\ to Prepare Documents at IFM/UFPEL}{Electronic document preparation, \LaTeX, ABNT, UFPEL}
-This document is an example on how to prepare documents at IFM/UFPEL
-using the \LaTeX\ classes provided by the UTUG\@. At the same time, it
-may serve as a guide for general-purpose commands. \emph{The text in
-the abstract should not contain more than 500~words.}
-\end{englishabstract}
+\include{paginas_preliminares}
+\include{resumo}
 
 \listoffigures
 \listoftables
@@ -94,7 +62,7 @@ the abstract should not contain more than 500~words.}
 \tableofcontents
 
 \include{intro}
-\include{segmentacao}
+\include{processamento_de_imagens}
 
 % TODO: arrumar referencias
 \bibliographystyle{abnt-alf}

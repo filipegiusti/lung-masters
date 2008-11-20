@@ -39,7 +39,7 @@ O resultado de cada pixel das fatias obtidas é a soma das energias bloqueadas p
 % expandir ou nao expandir? eis a questão.
 
 Essas imagens são geralmente de 512x512 pixels, embora alguns equipamentos possuam uma resolução de 1024x1024 pixels. O tamanho do pixel é da ordem de 1mm, podendo chegar em algumas unidades a valores em torno de 0,1mm.
-% referencia
+% TODO: referencia
 
 \subsection{Coeficiente de Hounsfield}
 
@@ -152,8 +152,8 @@ A técnica de threshold adaptivo, que pode ser vista em \ref{fig:threshold}, con
 
 \begin{figure}[ht]
  \begin{center}
-  \subfigure[Imagem original]{\includegraphics[width=2.5in]{imagens/TCpulmao.png}}
-  \subfigure[Depois do threshold adaptativo]{\includegraphics[width=2.5in]{imagens/TCpulmaoTHRESHOLDED.png}}
+  \subfigure[Imagem original]{\includegraphics[width=2.9in]{imagens/TCpulmao.png}}
+  \subfigure[Depois do threshold adaptativo]{\includegraphics[width=2.9in]{imagens/TCpulmaoTHRESHOLDED.png}}
  \end{center}
  \caption{Imagem de tomografia computadorizada original e após a aplicação de threshold adaptativo.}
  \label{fig:threshold}
@@ -165,17 +165,105 @@ Morfologia é o estudo da forma. Em processamento de imagens, morfologia matemá
 
 A linguagem utilizada na morfologia matemática é a teoria dos conjuntos. Conjuntos na morfologia matemática representam objetos numa imagem. Por exemplo, o conjunto de todos os pixels pretos numa imagem binária é uma descrição morfologica completa da image. Em imagens binárias, os conjuntos em questão são membros do espaço dos inteiros em duas dimensões $Z^2$, onde cada elemento do conjunto é uma tupla cujas coordenadas são as coordenadas de um pixel preto na image. Imagens em tons de cinza podem ser representadas como conjuntos cujos componentes estão em $Z^3$. Neste caso, dois componentes de cada elemento do conjunto se referem as coordenadas do pixel, e o terceiro corresponde ao valor do seu nível de cinza. Conjuntos em espaços dimensionais ainda mais elevados podem conter outros atributos da imagem, como cor ou componentes que variam com o tempo \cite{gonzalez}.
 
-As operações fundamentais da morfologia matemática são a erosão e a dilatação. Essas operações necessitam do que chamamos de elementos estruturantes. Estes elementos, tão simples quanto matrizes, determinam quais pixels da imagem são retirados (no caso de uma erosão) ou quais são adicionados (no caso de uma dilatação) aos objetos.
+Então temos a morfologia binária que se aplica sobre imagens binárias e a morfologia cinza que se aplica a imagens em níveis de cinza. Uma operação morfológica binária é completamente determinada a partir da vizinhaça examinada ao redor do ponto central e do algoritmo utilizado, Já na morfologia cinza, na vizinhança de cada pixel, ou numa parte da vizinhança, é necessário conhecer o valor do pixel mais escuro, e o valor do mais claro. O valor do pixel resultando corresponde a uma combinação particular desses dois. Portanto o tamanho e a forma da vizinhança, as regiões de pesquisa dos valores máximo e minímo e o algoritmo utilizado, determinam uma operação de morfologia cinza \cite{facon}.
 
-%TODO: continua
+As operações fundamentais da morfologia matemática são a erosão e a dilatação. Essas operações necessitam do que chamamos de elementos estruturantes. Estes elementos, determinam quais pixels da imagem são retirados (no caso de uma erosão) ou quais são adicionados (no caso de uma dilatação) aos objetos. Elementos estruturantes são simplesmente imagens binárias em que um dos pontos é definido como centro. Como exemplos largamente utilizados podemos citar: um quadrado de 3x3 pixels (figura \ref{fig:ee_quadrado}), uma cruz definida pelo pontos {(-1,0),(0,-1),(0,0),(0,1),(1,0)} (figura \ref{fig:ee_cruz}) e um círculo de raio qualquer (figura \ref{fig:ee_circulo}).
 
-%TODO: matriz do elemento estruturante
-%TODO: exemplo de antes de depois do erosão+dilatação
+\begin{figure}[ht]
+ \begin{center}
+  \subfigure[Quadrado (3x3))]{\includegraphics[width=1in]{imagens/ee_quadrado.png}\label{fig:ee_quadrado}}
+  \hspace{1.5cm}
+  \subfigure[Cruz (3x3)]{\includegraphics[width=1in]{imagens/ee_cruz.png}\label{fig:ee_cruz}}
+  \hspace{1.5cm}
+  \subfigure[Círculo de raio 2 (5x5)]{\includegraphics[width=1in]{imagens/ee_circulo.png}\label{fig:ee_circulo}}
+ \end{center}
+ \caption{Exemplos de elementos estruturantes.}
+ \label{fig:elemento_estruturante}
+\end{figure}
 
-\section{Extração de características}
+\subsection{Erosão e Dilatação}
 
-\subsection{Histograma}
+Na erosão, o elemento estruturante é sobreposto à imagem em todas as posições possíveis. O pixel que fica na posição da origem do elemento estruturante é modificado da seguinte forma: se o elemento estiver em parte sobre o objeto e em parte sobre o fundo, o pixel que está na posição da origem passa a ser fundo. Ou seja, um pixel só pode permanecer no objeto se, quando a origem do elemento estruturante estiver sobre ele, todo o elemento estiver sobre o objeto, como podemos ver na \ref{fig:erosao}.
+
+Efeitos da erosão:
+
+\begin{itemize}
+ \item Diminui as partículas;
+ \item Elimina grãos de tamanho inferior ao tamanho do elemento estruturante;
+ \item Aumenta os buracos;
+ \item Separa grãos próximos.
+\end{itemize}
+
+
+Na dilatação o que muda é que quando o elemento está em parte sobre o fundo e em parte sobre o objeto, o seu centro passa a ser objeto, como vemos na \ref{fig:dilatacao}. Isto aumenta o tamanho do objeto, como o nome dilatação sugere.
+
+Efeitos da dilatação:
+
+\begin{itemize}
+ \item Aumenta as partículas;
+ \item Preenche pequenos buracos;
+ \item Conecta grãos próximos.
+\end{itemize}
+
+\begin{figure}[ht]
+ \begin{center}
+  \subfigure[Imagem Original]{\includegraphics[width=2.9in]{imagens/afterHoleFilling.png}}
+  \\
+  \subfigure[Dilatação]{\includegraphics[width=2.9in]{imagens/dilatacao.png}\label{fig:dilatacao}}
+  \subfigure[Erosão]{\includegraphics[width=2.9in]{imagens/erosao.png}\label{fig:erosao}}
+ \end{center}
+ \caption{Imagem de tomografia computadorizada após passar por threshold adaptativo e limpeza, submetida a dilatação e erosão utilizando como elemento estruturante um círculo de raio 3 pixels.}
+ \label{fig:erosao_dilatacao}
+\end{figure}
+
+\subsection{Abertura e Fechamento}
+
+Erosão e dilatação podem corrigir defeitos numa imagem com furos, conexões. Porém, o objeto alterado por essas operações não mantém o mesmo tamanho. A erosão reduz e a dilatação aumenta. Com a abertura e o fechamento binários, podemos manter aproximadamente as características de forma e tamanho do objeto.
+
+A abertura é obtida através da erosão, seguida de uma dilatação da imagem resultante com o mesmo elemento estruturante. Esta operação é capaz de eliminar pequenas partículas inferiores em tamanho ao elemento estruturante quase sem modificar o tamanho das outras entidades, além de nivelar os contornos pelo interior, como podemos ver na \ref{fig:abertura}.
+
+Já o fechamento é o inverso; dilatação, seguida de erosão. Ele conecta partículas próximas, suaviza as bordas pelo exterior e preenche os buracos inferiores em tamanho em relação ao elemento estruturante que estejam no interior das partículas, visto na \ref{fig:fechamento}.
+
+\begin{figure}[ht]
+ \begin{center}
+  \subfigure[Imagem Original]{\includegraphics[width=2.9in]{imagens/afterThreshold.png}}
+  \\
+  \subfigure[Abertura]{\includegraphics[width=2.9in]{imagens/abertura.png}\label{fig:abertura}}
+  \subfigure[Fechamento]{\includegraphics[width=2.9in]{imagens/fechamento.png}\label{fig:fechamento}}
+ \end{center}
+ \caption{Imagem de tomografia computadorizada após passar por threshold adaptativo, submetida a abertura e fechamento utilizando como elemento estruturante um círculo de raio 6 pixels.}
+ \label{fig:abertura_fechamento}
+\end{figure}
+
+\section{Extração de características de texturas}
+
+O sistema de visão humano percebe uma cena como sendo variações de intensidade e cor, a imagem toda ou as partes dela que formam certos padrões repetitivos, são chamadas de textura. Numa imagem de textura, um conjunto estatístico ou de atributos, varia lentamente ou se mantém quase periódico. Estes atributos, os quais são repetitivos ou quase, dominam as texturas de uma cena.
+
+Uma textura é uma junção de subpadrões que se repetem, que seguem um conjunto de regras de posicionamento bem definido. Estes subpadrões são feitos de unidades mais básicas, chamadas de primitivas. Esta caracterização de texturas é principalmente aplicável a texturas determinísticas, como por exemplo, linhas, tabuleiro de dama, etc. Existem imagens, como imagens de satélite da superfície terreste, que aparentemente não possuem esses padrões básicos que são repetidos ao longo do padrão mais abrangente \cite{acharya}.
+
+Uma imagem que seja uma textura, pode então ser toda reduzida num conjunto de características, também chamado de vetor de características. Essa transformação se chama extração de características. Se as características extraídas forem cuidadosamente escolhidas é esperado que o conjunto de características represente toda a informação relevante da textura.
+
+Uma primitiva é um conjunto conectado de pixels, caracterizado por um conjunto de atributos. A primitiva mais simples é um único pixel com seu atributo de nível de cinza. Um conjunto de pixels conectado que possui o mesmo nível de cinza ou que possui a mesma direção de borda forma uma primitiva. Outros atributos locais podem ser considerados para se definir uma primitiva. Outros atributos incluem a medida de regiões conectadas e a homogeneidade da sua propriedade local. Primitivas podem ser geradas a partir de imagens por vários filtros de vizinhança \cite{acharya}.
 
 \subsection{Matriz de co-ocorrência}
 
+Matriz de co-ocorrência é um dos métodos de processamento de imagens utilizado para caracterizar texturas. Ele descreve uma imagem, ou uma região de interesse na imagem, em termos da relação entre os valores dos pixels com os valores dos pixels vizinhos.
+
+Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a distribuição dos valores co-ocorrentes num dado deslocamento. Matematicamente, a matrix de co-ocorrência $C$ é definida a partir de uma imagem $I$ de $N x M$, parametrizada com um deslocamento de ($\Delta{}x,\Delta{}y$), como \ref{equa:coocur-matriz}.
+
+\begin{equation}
+ C(i,j)=\sum_{p=1}^n\sum_{q=1}^m
+ \cases{
+	1, & $\mbox{se }I(p,q)=i\mbox{ e }I(p+\Delta{}x,q+\Delta{}y)=j$\cr
+	0, & $\mbox{senão}$\cr
+ }
+ \label{equa:coocur-matriz}
+\end{equation}
+
+Para poder ser utilizada, a matriz de co-ocorrência precisa ser normalizada, que poder ser obtida dividindo cada elemento da matriz pelo número total de pares de pixel.
+
+Percebemos que o deslocamento ($\Delta{}x,\Delta{}y$) faz com que a matriz de co-ocorrência seja sensível a rotação. Dessa forma, uma rotação da imagem diferente de 180 graus irá resultar numa matriz de co-ocorrência diferente para uma mesma imagem (rotacionada). Isso é raramente desejado nas aplicações em que a matriz de co-ocorrência é usada, portanto a matriz de co-ocorrência é geralmente formada usando um conjunto de deslocamentos que variam até 180 graus com uma mesma distância entre eles (por exemplo 0, 45, 90 e 135 graus) para não ser influenciada pela rotação.
+
 \subsection{Características de Haralick}
+
+\cite{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser usadas para classificar imagens de textura.
