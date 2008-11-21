@@ -1,1 +1,16 @@
 \chapter{Recuperação de imagens baseada em conteúdo}
+
+Os primeiros trabalhos sobre recuperação de imagens são datados do final da década de 1970. Em 1979, uma conferência sobre \textit{Database Techniques for Pictorial Applications} (numa tradução livre "Técnicas de banco de dados para aplicações com imagens") foi realizada em Florência, Itália. Desde então, o potencial de técnicas de gerenciamento de banco de dados de imagens atraíu a atenção dos pesquisadores.
+
+As primeiras técnicas não foram baseadas em características visuais e sim em anotações textuais das imagens. Em outras palavras, as imagens eram primeiro descritas textualmente, para então serem recuperadas usando busca baseada em texto dos sistemas de gerenciamente de banco de dados tradicionais. Através das descrições textuais, as imagens podem ser organizadas por tópicos ou classes hierárquicas para facilitar a busca através de requisições usando expressões lógicas. Entretanto, como a geração automática de descrições para imagens diversas é uma tarefa quase impossível, a maioria dos sistemas de recuperação baseados em imagem requer que as descrições sejam feitas manualmente. Obviamente, fazer anotações manualmente sobre uma imagem é uma tarefa difícil e onerosa para grandes bancos de dados de imagens, além de ser geralmente subjetiva, sensível ao contexto e incompleta \cite{feng-chapter}.
+
+O objetivo dos sistemas de recuperação de imagens baseada em conteúdo - CBIR (content based image retrieval) - é buscar em um banco de imagens as imagens mais relevantes relativas a uma requisição visual. Dessa forma eliminando a necessidade de descrições textuais manuais e tornando a busca mais eficiente e menos subjetiva.
+
+Num sistema CBIR típico, o conteúdo visual relevante das imagens no banco de imagens é extraído e armazenado como um vetor de características. Para realizar a recuperação das imagens mais relevantes, o usuário fornece ao sistema uma imagem exemplo ou um esboço do que ele busca. O sistema então realiza a extração das características. A similaridade entre o vetor de característica da imagem exemplo ou esboço e cada uma das imagens do banco de dados é então calculada e a recuperação realizada com a ajuda de um esquema de indexação. Sistemas de CBIR recentes levam em conta a resposta do usuário, sobre quais imagens são relevantes, para modificar o processo de recuperação, de forma a gerar resultados mais relevantes. 
+% TODO: diagrama CBIR típico
+
+\section{Similaridade}
+
+\section{Relevance Feedback}
+
+\section{Performance ou eficiência (Validação)}
