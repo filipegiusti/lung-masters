@@ -36,7 +36,7 @@ A forma de movimentação depende da tecnologia da máquina utilizada. Nas máqu
 
 O resultado de cada pixel das fatias obtidas é a soma das energias bloqueadas pelos tecidos do corpo, e sabe-se exatamente em que ângulo cada fatia foi tirada, por isso após a aquisição das seções transversais, é possivel a reconstrução da imagem em até 3 dimensões. Para a reconstrução é utilizada uma técnica matemática chamada de projeção retrógrada, ou outras, como a transformada de Fourier.
 
-% expandir ou nao expandir? eis a questão.
+% TODO: expandir ou nao expandir? eis a questão.
 
 Essas imagens são geralmente de 512x512 pixels, embora alguns equipamentos possuam uma resolução de 1024x1024 pixels. O tamanho do pixel é da ordem de 1mm, podendo chegar em algumas unidades a valores em torno de 0,1mm.
 % TODO: referencia
@@ -113,15 +113,15 @@ O uso de diferentes janelas em tomografia permite por exemplo o estudo dos ossos
 
 \subsection{Artefatos}
 
-% imperfeições da máquina - artefatos
+% TODO: imperfeições da máquina - artefatos
 
 \subsection{Padrão DICOM}
 
-A introdução de imagens médicas digitais na década de 70 do século passado e o uso de computadores para processar estas imagens fizeram com que o American College of Radiology (ACR) e a National Electrical Manufacturers Association (NEMA) se juntassem para formar um comitê com o objetivo de criar um método padrão para a transmissão de imagens médicas e das informações associadas a elas.
+A introdução de imagens médicas digitais na década de 70 do século passado e o uso de computadores para processar estas imagens fizeram com que o American College of Radiology - ACR - e a National Electrical Manufacturers Association - NEMA - se juntassem para formar um comitê com o objetivo de criar um método padrão para a transmissão de imagens médicas e das informações associadas a elas.
 
 Este comitê, constituído em 1983, publicou seu primeiro conjunto de padrões, chamado de ACR-NEMA, em 1985, e o segundo em 1988. Até a publicação dos padrões, a maioria dos equipamentos utilizava formatos proprietários para fazer o armazenamento e comunicação de imagens.
 
-Embora as primeiras versões não tenham obtido êxito total na definição de um padrão comum, a terceira versão, publicada em 1993 sob o nome de DICOM (Digital Imaging and Communications in Medicine), conseguiu estabelecer uma forma padronizada de armazenamento e comunicação de imagens médicas e as correspondentes informações associadas.
+Embora as primeiras versões não tenham obtido êxito total na definição de um padrão comum, a terceira versão, publicada em 1993 sob o nome de DICOM - Digital Imaging and Communications in Medicine, conseguiu estabelecer uma forma padronizada de armazenamento e comunicação de imagens médicas e as correspondentes informações associadas.
 
 Com os melhoramentos promulgados por esta terceira versão, o padrão estava pronto tanto para permitir transferência de imagens médicas em um ambiente com múltiplos fabricantes como também para facilitar o desenvolvimento e a expansão dos sistemas de armazenamento e de comunicação e a conexão com os sistemas de informação médica \cite{nema}.
 
@@ -136,6 +136,7 @@ A segmentação de imagens não triviais é uma das tarefas mais difíceis no pr
 Mas o processo de segmentação é enormemente facilitado quando o domínio das imagens do problema é bem conhecido e restrito. Desse forma permitindo que as técnicas de segmentação possam ser alteradas para trazer resultados mais satisfatórios no domínio do problema.
 
 \subsection{Threshold Adaptativo}
+\label{subsec:threshold}
 
 Threshold é um dos métodos mais simples de segmentação de imagens. A partir de uma imagem em tons de cinza, o threshold pode ser usado para torná-la binária.
 
