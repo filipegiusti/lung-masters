@@ -6,11 +6,22 @@ As primeiras técnicas não foram baseadas em características visuais e sim em 
 
 O objetivo dos sistemas de recuperação de imagens baseada em conteúdo - CBIR (content based image retrieval) - é buscar em um banco de imagens as imagens mais relevantes relativas a uma requisição visual. Dessa forma eliminando a necessidade de descrições textuais manuais e tornando a busca mais eficiente e menos subjetiva.
 
-Num sistema CBIR típico, o conteúdo visual relevante das imagens no banco de imagens é extraído e armazenado como um vetor de características. Para realizar a recuperação das imagens mais relevantes, o usuário fornece ao sistema uma imagem exemplo ou um esboço do que ele busca. O sistema então realiza a extração das características. A similaridade entre o vetor de característica da imagem exemplo ou esboço e cada uma das imagens do banco de dados é então calculada e a recuperação realizada com a ajuda de um esquema de indexação. Sistemas de CBIR recentes levam em conta a resposta do usuário, sobre quais imagens são relevantes, para modificar o processo de recuperação, de forma a gerar resultados mais relevantes. 
+Num sistema CBIR típico, o conteúdo visual relevante das imagens no banco de imagens é extraído e armazenado como um vetor de características. Para realizar a recuperação das imagens mais relevantes, o usuário fornece ao sistema uma imagem exemplo ou um esboço do que ele busca. O sistema então realiza a extração das características. A similaridade entre o vetor de característica da imagem exemplo ou esboço e cada uma das imagens do banco de dados é então calculada e a recuperação realizada com a ajuda de um esquema de indexação. Sistemas de CBIR recentes levam em conta a resposta do usuário, sobre quais imagens são relevantes, para modificar o processo de recuperação, de forma a gerar resultados mais relevantes.
 % TODO: diagrama CBIR típico
 
 \section{Similaridade}
 
+No dia-a-dia precisamos categorizar diversas coisas no mundo real e da informação para que pela comparação com conceitos e situações já existentes, possamos aprender outros. Portanto a capacidade de analisar a similaridade das coisas é importantíssima. Para sistema de CBIR, é necessário que a medida de similaridade chegue o mais perto possível da percepção do usuário, pois ela irá afetar a eficiência das buscas significativamente.
+
+Várias medidas de similaridade foram desenvolvidas para recuperação de imagens nos últimos anos, a maioria baseada em estimativas empíricas da distribuição de características \cite{feng-chapter}. Entretanto essas medidas são estáticas, após escolhidas durante o desenvolvimento do sistema, não são mais alteradas. Dessa forma a utilidade desses sistemas é limitada devido a falta de capacidade de se representar conceitos de alto nível nas imagens utilizando características de baixo nível.
+
+Para contornar esse problema, pesquisadores \cite{mammography} \cite{cbir-nn-general} tem usado para a avaliação de similaridade redes neurais artificiais - RNAs, as quais são capazes de aprender através da interação do usuário.
+
+\section{Redes neurais artificiais}
+
+
+
 \section{Relevance Feedback}
 
-\section{Performance ou eficiência (Validação)}
+\section{Eficiência de um sistema de CBIR}
+
