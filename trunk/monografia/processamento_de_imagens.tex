@@ -10,7 +10,7 @@ Em geral, os sistemas de processamento de imagens médicas extraem informações
 
 A tomografia era um dos mais importantes métodos de diagnóstico radiológico até a invenção da tomografia computadorizada - TC, na década de 70 do século passado. Sendo um dos primeiros tipos de exame a se beneficiar da popularização da computação.
 
-A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades causadas por doenças ou acidentes \cite{oliveira}.
+A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades cautilizadas por doenças ou acidentes \cite{oliveira}.
 
 As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de TC a fonte e os detectores de raios x são movidos para posições pre-determinadas e então obtem diversas imagens, como demonstrado na fig.~\ref{fig:tc1}, as quais representam fatias finas do paciente.
 
@@ -22,7 +22,7 @@ As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quai
  \label{fig:tc1}
 \end{figure}
 
-A forma de movimentação depende da tecnologia da máquina utilizada. Nas máquinas mais antigas, eram tiradas várias fotos de uma fatia do paciente, apenas circulando em torno dele, e então depois a "cama" onde o paciente deita-se se move, para outra rodada de fotos, como na fig.~\ref{fig:tc2}. Hoje em dia, temos as máquinas helicoidais, os quais descrevem uma hélice em torno do paciente, em vez de uma sucessão de círculos completo. Desta forma é obtida informação de uma forma contínua.
+A forma de movimentação depende da tecnologia da máquina utilizada. Nas máquinas mais antigas, eram tiradas várias projeções de uma fatia do paciente, apenas circulando em torno dele, e então depois a "cama" onde o paciente deita-se se move, para outra rodada de projeções, como na fig.~\ref{fig:tc2}. Hoje em dia, temos as máquinas helicoidais, os quais descrevem uma hélice em torno do paciente, em vez de uma sucessão de círculos completo. Desta forma é obtida informação de uma forma contínua.
 
 \begin{figure}[ht]
  \begin{center}
@@ -108,11 +108,11 @@ O uso de diferentes janelas em tomografia permite por exemplo o estudo dos ossos
 
 \subsection{Padrão DICOM}
 
-A introdução de imagens médicas digitais na década de 70 do século passado e o uso de computadores para processar estas imagens fizeram com que o American College of Radiology - ACR - e a National Electrical Manufacturers Association - NEMA - se juntassem para formar um comitê com o objetivo de criar um método padrão para a transmissão de imagens médicas e das informações associadas a elas.
+A introdução de imagens médicas digitais na década de 70 do século passado e o uso de computadores para processar estas imagens fizeram com que o American College of Radiology (ACR) e a National Electrical Manufacturers Association (NEMA) se juntassem para formar um comitê com o objetivo de criar um método padrão para a transmissão de imagens médicas e das informações associadas a elas.
 
 Este comitê, constituído em 1983, publicou seu primeiro conjunto de padrões, chamado de ACR-NEMA, em 1985, e o segundo em 1988. Até a publicação dos padrões, a maioria dos equipamentos utilizava formatos proprietários para fazer o armazenamento e comunicação de imagens.
 
-Embora as primeiras versões não tenham obtido êxito total na definição de um padrão comum, a terceira versão, publicada em 1993 sob o nome de DICOM - Digital Imaging and Communications in Medicine, conseguiu estabelecer uma forma padronizada de armazenamento e comunicação de imagens médicas e as correspondentes informações associadas.
+Embora as primeiras versões não tenham obtido êxito total na definição de um padrão comum, a terceira versão, publicada em 1993 sob o nome de DICOM (Digital Imaging and Communications in Medicine), conseguiu estabelecer uma forma padronizada de armazenamento e comunicação de imagens médicas e as correspondentes informações associadas.
 
 Com os melhoramentos promulgados por esta terceira versão, o padrão estava pronto tanto para permitir transferência de imagens médicas em um ambiente com múltiplos fabricantes como também para facilitar o desenvolvimento e a expansão dos sistemas de armazenamento e de comunicação e a conexão com os sistemas de informação médica \cite{nema}.
 
@@ -120,7 +120,7 @@ Nos dias de hoje, a maioria dos fabricantes de equipamentos para aquisição de 
 
 \section{Segmentação}
 
-Segmentação é a área do processamento de imagens que trata de isolar as regiões de interesse de uma imagem ou mudar a sua representação para facilitar a sua análise em determinada aplicação. Segmentação de imagens é tipicamente usada para localizar objetos e formas (curvas, linhas, etc) em imagens.
+Segmentação é a área do processamento de imagens que trata de isolar as regiões de interesse de uma imagem ou mudar a sua representação para facilitar a sua análise em determinada aplicação. Segmentação de imagens é tipicamente utilizada para localizar objetos e formas (curvas, linhas, etc) em imagens.
 
 A segmentação de imagens não triviais é uma das tarefas mais difíceis no processamento de imagens. A precisão da segmentação determina o sucesso ou falha de um sistema de análise computadorizada \cite{gonzalez}.
 
@@ -253,11 +253,11 @@ Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a dis
 
 Para poder ser utilizada, a matriz de co-ocorrência precisa ser normalizada, que poder ser obtida dividindo cada elemento da matriz pelo número total de pares de pixel.
 
-Percebemos que o deslocamento ($\Delta{}x,\Delta{}y$) faz com que a matriz de co-ocorrência seja sensível a rotação. Dessa forma, uma rotação da imagem diferente de 180 graus irá resultar numa matriz de co-ocorrência diferente para uma mesma imagem (rotacionada). Isso é raramente desejado nas aplicações em que a matriz de co-ocorrência é usada, portanto a matriz de co-ocorrência é geralmente usada a partir da média em cada valor da matriz para um conjunto de deslocamentos que variam até 180 graus com uma mesma distância entre eles (por exemplo 0, 45, 90 e 135 graus) para não ser influenciada pela rotação.
+Percebemos que o deslocamento ($\Delta{}x,\Delta{}y$) faz com que a matriz de co-ocorrência seja sensível a rotação. Dessa forma, uma rotação da imagem diferente de 180 graus irá resultar numa matriz de co-ocorrência diferente para uma mesma imagem (rotacionada). Isso é raramente desejado nas aplicações em que a matriz de co-ocorrência é utilizada, portanto a matriz de co-ocorrência é geralmente utilizada a partir da média em cada valor da matriz para um conjunto de deslocamentos que variam até 180 graus com uma mesma distância entre eles (por exemplo 0, 45, 90 e 135 graus) para não ser influenciada pela rotação.
 
 \subsection{Características de Haralick}
 
-\citealt{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser usadas para classificar imagens de textura. Abaixo estão descritas algumas delas.
+\citealt{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser utilizadas para classificar imagens de textura. Abaixo estão descritas algumas delas.
 
 Considere N como sendo o número de níveis de cinza da matriz de co-ocorrência e.
 

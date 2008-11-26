@@ -11,11 +11,11 @@ Num sistema CBIR típico, o conteúdo visual relevante das imagens no banco de i
 
 \section{Similaridade}
 
-No dia-a-dia precisamos categorizar diversas coisas no mundo real e da informação para que pela comparação com conceitos e situações já existentes, possamos aprender outros. Portanto a capacidade de analisar a similaridade das coisas é importantíssima. Para sistema de CBIR, é necessário que a medida de similaridade chegue o mais perto possível da percepção do usuário, pois ela irá afetar a eficiência das buscas significativamente.
+No dia-a-dia precisamos categorizar diversas coisas no mundo real e da informação, para que, pela comparação com conceitos e situações já existentes, possamos aprender outros. Portanto a capacidade de analisar a similaridade das coisas é importantíssima. Para sistema de CBIR, é necessário que a medida de similaridade chegue o mais perto possível da percepção do usuário, pois ela irá afetar a eficiência das buscas significativamente.
 
 Várias medidas de similaridade foram desenvolvidas para recuperação de imagens nos últimos anos, a maioria baseada em estimativas empíricas da distribuição de características \cite{feng-chapter}. Entretanto essas medidas são estáticas, após escolhidas durante o desenvolvimento do sistema, não são mais alteradas. Dessa forma a utilidade desses sistemas é limitada devido a falta de capacidade de se representar conceitos de alto nível nas imagens utilizando características de baixo nível.
 
-Para contornar esse problema, pesquisadores \cite{mammography} \cite{cbir-nn-general} tem usado para a avaliação de similaridade redes neurais artificiais - RNAs, as quais são capazes de aprender com as respostas do usuário.
+Para contornar esse problema, pesquisadores \cite{mammography} \cite{cbir-nn-general} tem usado para a avaliação de similaridade redes neurais artificiais - RNAs, as quais são capazes de aprender através da interação do usuário.
 
 \section{Redes neurais artificiais}
 
@@ -48,7 +48,7 @@ Diferentes modelos de RNAs são obtidos utilizando-se diferentes funções de at
  \label{fig:func:rna}
 \end{figure}
 
-Na maioria dos casos, será matematicamente conveniente substituir o valor de limiar com um peso extra de entrada no nodo. Dessa forma podemos utilizar um algoritmo mais simples de aprendizado, pois teremos a necessidade de atualizar apenas os pesos, e não os pesos e os limiares. Esse peso extra que deveria ter um valor de ativação vindo de um nodo ou uma entrada, terá sempre $-1$ como valor de ativação. Servindo assim como um limiar $t$, considerando que $w_{0,j} \cdot a_0 = -t$, então todos os nodos poderã ter o limiar fixo em 0.
+Na maioria dos casos, será matematicamente conveniente substituir o valor de limiar com um peso extra de entrada no nodo. Dessa forma podemos utilizar um algoritmo mais simples de aprendizado, pois teremos a necessidade de atualizar apenas os pesos, e não os pesos e os limiares. Esse peso extra que deveria ter um valor de ativação vindo de um nodo ou uma entrada, terá sempre $-1$ como valor de ativação. Servindo assim como um limiar $t$, considerando que $w_{0,j} \cdot a_0 = -t$, então todos os nodos poderão ter o limiar fixo em 0.
 
 Existe uma variedade de tipos de estruturas de RNAs, e cada uma resulta em propriedades computacionais muito diferentes. A maior distinção pode ser feita entre as pró-alimentadas e as recorrentes. Nas pró-alimentadas as arestas são unidirecionais e não possuem ciclos, ou seja, são grafos acíclicos direcionados. Numa estrutura recorrente, elas podem formar topologias arbitrárias.
 
@@ -71,12 +71,14 @@ Com uma camadas de nodos intermediários (suficientemente grande), é possível 
 
 A maneira mais popular de se treinar uma RNA de múltiplas camadas é utilizando o algoritmo de retro-propagação. Ele tenta minimizar o erro entre o valor de saída e o valor esperado, verificando qual é a contribuição de cada peso no erro.
 
-Desta forma, se a RNA calcular um valor correto, os pesos não são alterados. Mas se houver diferença entre o valor esperado e o calculado, os pesos são ajustados de forma a reduzir o erro. Para os nodos de saída utiliza-se a equação \ref{equa:back:output}, $t_j$ é a saída do nodo $j$ e $o_j$ a saída esperada do nodo $j$.
+Desta forma, se a RNA calcular um valor correto, os pesos não são alterados. Mas se houver diferença entre o valor esperado e o calculado, os pesos são ajustados de forma a reduzir o erro. Para os nodos de saída utiliza-se a equação \ref{equa:back:output},
 
 \begin{equation}
 	w_{i,j} = w_{i,j} + a \cdot a_i \cdot (t_j - o_j) \cdot g'(e_j)
 	\label{equa:back:output}
 \end{equation}
+
+onde $t_j$ é a saída do nodo $j$ e $o_j$ a saída esperada do nodo $j$.
 
 Sendo $a$ uma constante chamada de taxa de aprendizado, $e_j$ o resultado da função de entrada e $g'()$ é a derivada da função de ativação. Será conveniente definir $\Delta_j = (t_j - o_j) \cdot g'(e_j)$. A regra de atualização de pesos pode ser escrito como
 
@@ -106,4 +108,4 @@ As medidas mais usadas para avaliar a qualidado dos resultados de um sistema de 
 	\label{equa:recall}
 \end{equation}
 
-É trivial atingir um \textit{recall} de 100\% retornando todas as imagens do banco. Por isso o \textit{recall} sozinho não é uma medida boa, deve ser interpretada junto a precisão do sistema. Geralmente, existe uma relação inversa entre a precisão e o \textit{recall}, onde é possível aumentar um ao custo de reduzir o outro.
+É trivial atingir um \textit{recall} de 100\% retornando todas as imagens do banco. Por isso o \textit{recall} sozinho não é uma medida boa, deve ser interpretada junto com a precisão do sistema. Geralmente, existe uma relação inversa entre a precisão e o \textit{recall}, onde é possível aumentar um ao custo de reduzir o outro.
