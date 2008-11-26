@@ -10,7 +10,7 @@ Em geral, os sistemas de processamento de imagens médicas extraem informações
 
 A tomografia era um dos mais importantes métodos de diagnóstico radiológico até a invenção da tomografia computadorizada - TC, na década de 70 do século passado. Sendo um dos primeiros tipos de exame a se beneficiar da popularização da computação.
 
-A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades cautilizadas por doenças ou acidentes \cite{oliveira}.
+A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades causadas por doenças ou acidentes \cite{oliveira}.
 
 As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de TC a fonte e os detectores de raios x são movidos para posições pre-determinadas e então obtem diversas imagens, como demonstrado na fig.~\ref{fig:tc1}, as quais representam fatias finas do paciente.
 
@@ -88,20 +88,21 @@ Precisamos definir os valores máximo e mínimo da janela, para mapear os valore
 O uso de diferentes janelas em tomografia permite por exemplo o estudo dos ossos com distinção entre a cortical e a medular óssea ou o estudo de partes moles com a distinção, por exemplo, no cérebro entre a substância branca e a cinzenta. A mesma imagem pode ser mostrada com diferentes ajustes da janela, de modo a mostrar diferentes estruturas de cada vez. Não é possível usar um só ajuste da janela para ver, por exemplo, detalhes ósseos e de tecido adiposo ao mesmo tempo. Alguns valores comuns de janela estão na tab.~\ref{tab:janela}.
 
 \begin{table}
- \caption{Valores comuns de janela para certos tipos de exame.}
-% TODO: referencia
-% TODO: fazer tabela
+ \caption{Valores comuns de janela.}
  \begin{center}
  \begin{tabular}{l|r|r}
  \hline
- 	\textbf{Tecido a ser destacado} & \textbf{Largura da janela} & \textbf{Centro da janela} \\
- 	Tórax na altura do mediastino & 500 & 39 \\
- 	Pulmão & 850 & -500\\
+ 	\textbf{Tecido a ser destacado} & \textbf{Largura da janela} & \textbf{Centro da janela} \\ \hline
+ 	Tecido mole (Abdômen) & 400 & 40 \\
+ 	Pulmão & 1500 & -700\\
+	Cérebro & 100 & 35\\
+	Osso & 2000 & 350\\
+	Fígado & 2000 & -500\\
  \hline
  \end{tabular}
  \end{center}
  \begin{description}
-  \item Fonte: \citealt{oliveira}
+  \item Fonte: \citealt{common:hu}
  \end{description}
  \label{tab:janela}
 \end{table}
