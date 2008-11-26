@@ -34,12 +34,12 @@ Muitas das funções desempenhadas pela ferramenta desenvolvida incluem o proces
 Visualization Toolkit (VTK) é uma biblioteca voltada à visualização e processamento de gráficos computacionais 2D ou 3D \cite{vtk}. Seu projeto é baseado em técnicas de orientação a objeto e faz uso de bibliotecas gráficas de mais baixo nível, como OpenGL e Mesa3D. Podemos ver alguns exemplos de renderizações na Figura \ref{fig:vtk-ex}.
 
 \begin{figure}[ht]
-% TODO: fonte \cite{vtk-page}
  \begin{center}
   \subfigure[Isosuperfícies a partir de dados médicos.]{\includegraphics[height=1.9in]{imagens/vtk_ex.png}}
   \subfigure[Visualização de uma função quádrica.]{\includegraphics[height=1.9in]{imagens/vtk_ex2.png}}
  \end{center}
- \caption{Exemplos de visualização com o VTK.}
+ \caption[Exemplos de visualização com o VTK.]{Exemplos de visualização com o VTK.\\* \\* Fonte: \citealt{vtk-page}}
+% TODO: arrumar referencia
  \label{fig:vtk-ex}
 \end{figure}
 
@@ -67,8 +67,6 @@ Quanto à linguagem, ITK também é escrito em C++, mas possui interface para ut
 
 O ITK é também distribuído livremente, com código-fonte aberto e uma licença bem semelhante à do VTK, impondo poucas restrições ao seu uso, modificação e distribuição.
 
-% \subsection{FLTK}
-
 \subsection{FANN}
 
 A FANN %TODO: (COLOCAR O SIGNIFICADO!!!)
@@ -83,8 +81,6 @@ Grande   parte  da   construção    da  ferramenta    foi constituída pelo des
 \subsection{Segmentação de imagens de tomografia computadorizada dos pulmões}
 
 O objetivo deste algoritmo é gerar a partir de uma fatia da imagem de tomografia computadorizada, duas imagens contendo cada uma apenas um dos pulmões com as partes que não pertencem a eles pretas.
-
-% TODO: normalização da imagem
 
 São 5 as etapas desse algoritmo:
 \begin{enumerate}

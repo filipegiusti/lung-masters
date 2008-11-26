@@ -6,8 +6,15 @@ As primeiras técnicas não foram baseadas em características visuais e sim em 
 
 O objetivo dos sistemas de recuperação de imagens baseada em conteúdo - CBIR (content based image retrieval) - é buscar em um banco de imagens as imagens mais relevantes relativas a uma requisição visual. Dessa forma eliminando a necessidade de descrições textuais manuais e tornando a busca mais eficiente e menos subjetiva.
 
-Num sistema CBIR típico, o conteúdo visual relevante das imagens no banco de imagens é extraído e armazenado como um vetor de características. Para realizar a recuperação das imagens mais relevantes, o usuário fornece ao sistema uma imagem exemplo ou um esboço do que ele busca. O sistema então realiza a extração das características. A similaridade entre o vetor de característica da imagem exemplo ou esboço e cada uma das imagens do banco de dados é então calculada e a recuperação realizada com a ajuda de um esquema de indexação. Sistemas de CBIR recentes levam em conta a resposta do usuário, sobre quais imagens são relevantes, para modificar o processo de recuperação, de forma a gerar resultados mais relevantes.
-% TODO: diagrama CBIR típico
+Num sistema CBIR típico, o conteúdo visual relevante das imagens no banco de imagens é extraído e armazenado como um vetor de características. Para realizar a recuperação das imagens mais relevantes, o usuário fornece ao sistema uma imagem exemplo ou um esboço do que ele busca. O sistema então realiza a extração das características. A similaridade entre o vetor de característica da imagem exemplo ou esboço e cada uma das imagens do banco de dados é então calculada e a recuperação das imagens mais similares realizada. Sistemas de CBIR recentes levam em conta a resposta do usuário, sobre quais imagens são relevantes, para modificar o processo de recuperação, de forma a gerar resultados melhores (fig.~\ref{fig:cbir}).
+
+\begin{figure}[ht]
+ \begin{center}
+  \includegraphics[width=6in]{imagens/CBIR.png}
+ \end{center}
+ \caption{Diagrama de um sistema CBIR típico.}
+ \label{fig:cbir}
+\end{figure}
 
 \section{Similaridade}
 
@@ -21,9 +28,15 @@ Para contornar esse problema, pesquisadores \cite{mammography} \cite{cbir-nn-gen
 
 Uma RNA é composta de nodos conectados por arestas direcionadas. Cada aresta tem um peso associado. São esses pesos os responsáveis pelo armazenamento em RNAs, e o aprendizado geralmente acontece com a modificação desses pesos. A modificação de pesos tenta fazer com que o comportamento dos nodos de saída a partir dos nodos de entrada estejam mais próximos do valor esperado.
 
-Cade unidade tem um conjunto de aresta advindas de outros nodos e um conjunto partindo para outros nodos, um nível de ativação e um meio de calcular o nível de ativação, dados as suas entradas e pesos. A idéia é que cada nodo faça um cálculo local baseado das entradas advindas dos nodos vizinhos, mas sem necessidade de qualquer controle global sobre o conjunto de nodos \cite{russel:modern}.
+Cade unidade tem um conjunto de aresta advindas de outros nodos e um conjunto partindo para outros nodos, um nível de ativação e um meio de calcular o nível de ativação, dados as suas entradas e pesos (fig.~\ref{fig:rnaSimples}). A idéia é que cada nodo faça um cálculo local baseado das entradas advindas dos nodos vizinhos, mas sem necessidade de qualquer controle global sobre o conjunto de nodos \cite{russel:modern}.
 
-% TODO: imagem da uma RNA simples
+\begin{figure}[ht]
+ \begin{center}
+  \includegraphics[width=4in]{imagens/rnaSimples.png}
+ \end{center}
+ \caption{Uma RNA simples.}
+ \label{fig:rnaSimples}
+\end{figure}
 
 Para construir uma RNA, primeiro decide-se quantos nodos ela possuirá, de que tipo serão e como serão conectados. Então os pesos são inicializados, e então treinados utilizando um algoritmo de aprendizado a partir de um conjunto de exemplo da tarefa a ser realizada. O uso de exemplo também implica que deve ser decidido como representar os examplos em termos de entrada e saída da RNA.
 
@@ -38,7 +51,6 @@ Sendo $w_{i,j}$ o peso da aresta que sai do nodo $i$ até o nodo $j$ e $a_i$ o n
 
 Diferentes modelos de RNAs são obtidos utilizando-se diferentes funções de ativação. As duas escolhas mais comuns são funções limiares e sigmóides, ilustradas na fig. \ref{fig:func:rna}. As funções limiares tem um valor de limiar $t$ tal que a saída da função é 1 quando o valor de entrada é maior que o limiar, e 0 em qualquer outro caso.
 
-%TODO: imagem funcoes
 \begin{figure}[ht]
  \begin{center}
   \subfigure[Função limiar.]{\includegraphics[width=2.8in]{imagens/RNAlimiar.png}}
@@ -56,10 +68,9 @@ Existe uma variedade de tipos de estruturas de RNAs, e cada uma resulta em propr
 
 Um RNA para ser considerada um perceptron de múltiplas camadas deve ter além dos nodos de entrada e saída, nodos intermediários, os quais interagem apenas com outro nodos \cite{sandhya}. Podemos ver um perceptron de múltiplas camadas pró-alimentado na figura \ref{fig:rna}.
 
-% TODO: melhorar imagem.
 \begin{figure}[ht]
  \begin{center}
-  \includegraphics[width=4in]{imagens/rna.png}
+  \includegraphics[width=5.8in]{imagens/rna.png}
  \end{center}
  \caption{Perceptron de múltiplas camadas pró-alimentado simples.}
  \label{fig:rna}
