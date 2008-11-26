@@ -19,9 +19,91 @@ Para contornar esse problema, pesquisadores \cite{mammography} \cite{cbir-nn-gen
 
 \section{Redes neurais artificiais}
 
+Uma RNA é composta de nodos conectados por arestas direcionadas. Cada aresta tem um peso associado. São esses pesos os responsáveis pelo armazenamento em RNAs, e o aprendizado geralmente acontece com a modificação desses pesos. A modificação de pesos tenta fazer com que o comportamento dos nodos de saída a partir dos nodos de entrada estejam mais próximos do valor esperado.
 
+Cade unidade tem um conjunto de aresta advindas de outros nodos e um conjunto partindo para outros nodos, um nível de ativação e um meio de calcular o nível de ativação, dados as suas entradas e pesos. A idéia é que cada nodo faça um cálculo local baseado das entradas advindas dos nodos vizinhos, mas sem necessidade de qualquer controle global sobre o conjunto de nodos \cite{russel:modern}.
 
-\section{Relevance Feedback}
+% TODO: imagem da uma RNA simples
+
+Para construir uma RNA, primeiro decide-se quantos nodos ela possuirá, de que tipo serão e como serão conectados. Então os pesos são inicializados, e então treinados utilizando um algoritmo de aprendizado a partir de um conjunto de exemplo da tarefa a ser realizada. O uso de exemplo também implica que deve ser decidido como representar os examplos em termos de entrada e saída da RNA.
+
+Para computar o seu nível de ativação um nodo utiliza duas funções, as quais são chamadas de função de entrada e função de ativação. A função de entrada é linear e usada para computar a soma ponderada dos valores de entrada do nodo. Já a função de ativação é não linear e utilizada para transformar a soma ponderada no valor final que será o valor de ativação desse nodo.
+
+Sendo $w_{i,j}$ o peso da aresta que sai do nodo $i$ até o nodo $j$ e $a_i$ o nível de ativação do nodo $i$, a função de entrada para $j$ é calculada como em \ref{equa:f:entrada}.
+
+\begin{equation}
+	\sum_{i} w_{i,j} \cdot a_i
+	\label{equa:f:entrada}
+\end{equation}
+
+Diferentes modelos de RNAs são obtidos utilizando-se diferentes funções de ativação. As duas escolhas mais comuns são funções limiares e sigmóides, ilustradas na fig. \ref{fig:func:rna}. As funções limiares tem um valor de limiar $t$ tal que a saída da função é 1 quando o valor de entrada é maior que o limiar, e 0 em qualquer outro caso.
+
+%TODO: imagem funcoes
+\begin{figure}[ht]
+ \begin{center}
+  \subfigure[Função limiar.]{\includegraphics[width=2.8in]{imagens/RNAlimiar.png}}
+  \subfigure[Função sigmóide.]{\includegraphics[width=2.8in]{imagens/RNAsigmoide.png}}
+ \end{center}
+ \caption{Funções de ativação comuns em RNAs.}
+ \label{fig:func:rna}
+\end{figure}
+
+Na maioria dos casos, será matematicamente conveniente substituir o valor de limiar com um peso extra de entrada no nodo. Dessa forma podemos utilizar um algoritmo mais simples de aprendizado, pois teremos a necessidade de atualizar apenas os pesos, e não os pesos e os limiares. Esse peso extra que deveria ter um valor de ativação vindo de um nodo ou uma entrada, terá sempre $-1$ como valor de ativação. Servindo assim como um limiar $t$, considerando que $w_{0,j} \cdot a_0 = -t$, então todos os nodos poderã ter o limiar fixo em 0.
+
+Existe uma variedade de tipos de estruturas de RNAs, e cada uma resulta em propriedades computacionais muito diferentes. A maior distinção pode ser feita entre as pró-alimentadas e as recorrentes. Nas pró-alimentadas as arestas são unidirecionais e não possuem ciclos, ou seja, são grafos acíclicos direcionados. Numa estrutura recorrente, elas podem formar topologias arbitrárias.
+
+\subsection{Perceptron de múltiplas camadas pró-alimentado}
+
+Um RNA para ser considerada um perceptron de múltiplas camadas deve ter além dos nodos de entrada e saída, nodos intermediários, os quais interagem apenas com outro nodos \cite{sandhya}. Podemos ver um perceptron de múltiplas camadas pró-alimentado na figura \ref{fig:rna}.
+
+% TODO: melhorar imagem.
+\begin{figure}[ht]
+ \begin{center}
+  \includegraphics[width=4in]{imagens/rna.png}
+ \end{center}
+ \caption{Perceptron de múltiplas camadas pró-alimentado simples.}
+ \label{fig:rna}
+\end{figure}
+
+Com uma camadas de nodos intermediários (suficientemente grande), é possível representar qualquer função contínua das entradas, já com duas camadas intermediárias é possível representar até funções descontínuas.
+
+\subsection{Algoritmo de retro-propagação}
+
+A maneira mais popular de se treinar uma RNA de múltiplas camadas é utilizando o algoritmo de retro-propagação. Ele tenta minimizar o erro entre o valor de saída e o valor esperado, verificando qual é a contribuição de cada peso no erro.
+
+Desta forma, se a RNA calcular um valor correto, os pesos não são alterados. Mas se houver diferença entre o valor esperado e o calculado, os pesos são ajustados de forma a reduzir o erro. Para os nodos de saída utiliza-se a equação \ref{equa:back:output}, $t_j$ é a saída do nodo $j$ e $o_j$ a saída esperada do nodo $j$.
+
+\begin{equation}
+	w_{i,j} = w_{i,j} + a \cdot a_i \cdot (t_j - o_j) \cdot g'(e_j)
+	\label{equa:back:output}
+\end{equation}
+
+Sendo $a$ uma constante chamada de taxa de aprendizado, $e_j$ o resultado da função de entrada e $g'()$ é a derivada da função de ativação. Será conveniente definir $\Delta_j = (t_j - o_j) \cdot g'(e_j)$. A regra de atualização de pesos pode ser escrito como
+
+\begin{equation}
+	w_{i,j} = w_{i,j} + a \cdot a_i \cdot \Delta_j
+\end{equation}
+
+Para a atualização dos pesos dos nodos de entrada e intermediários nós precisamos definir uma quantidade análoga ao $\Delta_j$ dos nodos de saída. Este ponto é onde a retro-propagação do erro ocorre. Cada nodo $i$ é "responsável" por uma fração do erro $\Delta_j$ em cada um dos nodos de saída em que ele se conecta. Então o valor de $\Delta_j$ é dividido de acordo com a influência da conexão entre o nodo intermediário e o nodo de saída e propagado de volta para que os valores de $\Delta_i$ sejam calculados. A regra de propagação é a seguinte
+
+\begin{equation}
+	\Delta_i = g'(e_i) \cdot \sum_j w_{i,j} \cdot \Delta_j
+\end{equation}
+
+Agora a equação de atualização dos pesos dos nodos de entrada e intermediários é igual a dos nodos de saída, devemos apenas tomar cuidado no cálculo dos $\Delta$, que são diferentes.
 
 \section{Eficiência de um sistema de CBIR}
 
+As medidas mais usadas para avaliar a qualidado dos resultados de um sistema de CBIR são a precisão e o \textit{recall}, os quais são calculados pelas equações \ref{equa:precisao} e \ref{equa:recall}, respectivamente.
+
+\begin{equation}
+	\textit{precisão} = \frac{\textit{número de imagens relevantes recuperadas}}{\textit{número de imagens recuperadas}}
+	\label{equa:precisao}
+\end{equation}
+
+\begin{equation}
+	\textit{precisão} = \frac{\textit{número de imagens relevantes recuperadas}}{\textit{número de imagens relevantes}}
+	\label{equa:recall}
+\end{equation}
+
+É trivial atingir um \textit{recall} de 100\% retornando todas as imagens do banco. Por isso o \textit{recall} sozinho não é uma medida boa, deve ser interpretada junto a precisão do sistema. Geralmente, existe uma relação inversa entre a precisão e o \textit{recall}, onde é possível aumentar um ao custo de reduzir o outro.
