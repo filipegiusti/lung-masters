@@ -1,6 +1,6 @@
 \chapter{Ferramenta desenvolvida}
 
-Neste trabalho foi desenvolvido um protótipo de ferramenta cujo objetivo é auxiliar na interpretação de exames de tomografia computadorizada dos pulmões. O protótipo, através do processamento de imagens digitais e de técnicas de recuperação de imagens baseada em conteúdo, é capaz de oferecer suporte ao médico na realização do diagnóstico do paciente.
+Neste trabalho foi desenvolvido um protótipo de ferramenta cujo objetivo é auxiliar na interpretação de exames de tomografia computadorizada pulmonares. O protótipo, através do processamento de imagens digitais e de técnicas de recuperação de imagens baseada em conteúdo, é capaz de oferecer suporte ao médico na realização do diagnóstico do paciente.
 
 Neste capítulo serão demonstrados aspectos da implementação e utilização do protótipo desenvolvido.
 
@@ -9,7 +9,7 @@ Neste capítulo serão demonstrados aspectos da implementação e utilização d
 O desenvolvimento do trabalho foi realizado utilizando-se um notebook equipado com processador Intel\textregistered~Core\texttrademark~2~Duo T5450 (1.66GHz), 3GB de memória RAM DDR2 e placa de vídeo NVIDIA\textregistered~GeForce\texttrademark~8400M~GS com 256MB de memória dedicada.
 
 O sistema operacional de desenvolvimento foi o GNU/Linux da distribuição Debian \textit{testing}, utilizando a IDE NetBeans 6.1 com o auxílio das ferramentas cmake, make e gcc.
-% WINDOWS XP?
+% WINDOWS XP? Pode dizer q as ferramentas utilizadas são multiplataformas.
 
 \section{Imagens utilizadas}
 
@@ -31,7 +31,7 @@ Muitas das funções desempenhadas pela ferramenta desenvolvida incluem o proces
 
 \subsection{VTK}
 
-O Visualization Toolkit - VTK (Conjunto de Ferramentas para Visualização) - é uma biblioteca voltada à visualização e processamento de gráficos computacionais 2D ou 3D \cite{vtk}. Seu projeto é baseado em técnicas de orientação a objeto e faz uso de bibliotecas gráficas de mais baixo nível, como OpenGL e Mesa3D. Podemos ver alguns exemplos de renderizações na Figura \ref{fig:vtk-ex}.
+Visualization Toolkit (VTK) é uma biblioteca voltada à visualização e processamento de gráficos computacionais 2D ou 3D \cite{vtk}. Seu projeto é baseado em técnicas de orientação a objeto e faz uso de bibliotecas gráficas de mais baixo nível, como OpenGL e Mesa3D. Podemos ver alguns exemplos de renderizações na Figura \ref{fig:vtk-ex}.
 
 \begin{figure}[ht]
 % TODO: fonte \cite{vtk-page}
@@ -43,7 +43,7 @@ O Visualization Toolkit - VTK (Conjunto de Ferramentas para Visualização) - é
  \label{fig:vtk-ex}
 \end{figure}
 
-O VTK é uma biblioteca escrita na linguagem de programação C++, possibilitando a distribuição de classes pré-compiladas, prontas para utilização com esta linguagem. Entretanto, existe um subsistema que consiste de códigos de ligação (wrappers) que permitem a manipulação dessas classes em várias outras linguagens, como Tcl, Java e Python.
+VTK é uma biblioteca escrita na linguagem de programação C++, possibilitando a distribuição de classes pré-compiladas, prontas para utilização com esta linguagem. Entretanto, existe um subsistema que consiste de códigos de ligação (wrappers) que permitem a manipulação dessas classes em várias outras linguagens, como Tcl, Java e Python.
 
 Esta biblioteca é independente de plataforma, sendo testada e utilizada em praticamente todos os sistemas UNIX, em Windows 95/98/NT/2000/XP e em Mac OSX Jaguar e versões mais recentes. É utilizado por milhares de pesquisadores, universidades, corporações e institutos de pesquisa ao redor do mundo \cite{vtk-page}.
 
@@ -51,19 +51,19 @@ Por ser um sistema de visualização em um nível de abstração acima de biblio
 
 O processamento dos dados no VTK é feito através de uma arquitetura baseadas em linhas de execução (pipelines). A entrada de dados é conectada sucessivamente em vários filtros e transformações de modo a alterar os dados da maneira desejada e, por fim, ligado a uma classe para visualização.
 
-O VTK é distribuído livremente, com código-fonte aberto e uma licença que impõe pouquíssimas restrições. Entretanto, existe suporte comercial provido pela Kitware Inc., empresa mantenedora da biblioteca.
+VTK é distribuído livremente, com código-fonte aberto e uma licença que impõe pouquíssimas restrições. Entretanto, existe suporte comercial provido pela Kitware Inc., empresa mantenedora da biblioteca.
 
 \subsection{ITK}
 
-O ITK é uma biblioteca proposta pela Biblioteca Nacional de Medicina dos Estados Unidos da América, voltada para segmentação e registro de imagens \cite{yoo}.
+ITK (Insight Segmentation and Registration ToolKit) é uma biblioteca proposta pela Biblioteca Nacional de Medicina dos Estados Unidos da América, voltada para segmentação e registro de imagens \cite{yoo}.
 
-O ITK é composto por algoritmos e estruturas de representação de dados com duas finalidades principais: a identificação e classificação de elementos encontrados em uma imagem digital (segmentação) e a tarefa de alinhar imagens ou encontrar correspondências entre dados (registro).
+a biblioteca é composta por algoritmos e estruturas de representação de dados com duas finalidades principais: a identificação e classificação de elementos encontrados em uma imagem digital (segmentação) e a tarefa de alinhar imagens ou encontrar correspondências entre dados (registro).
 
 No ITK há um foco em aplicações médicas, embora não haja restrições quanto ao processamento de outros tipos de dados. Essa biblioteca não dá enfoque à parte de visualização deixando a cargo de outras ferramentas que possam ser utilizadas conjuntamente, como o VTK.
 
 O ITK é mantido, basicamente, por seis instituições: Kitware, GE Corporate R\&D, Insightful, University Chapel Hill, University of Utah e University of Pennsylvania, sendo as três primeiras comerciais e as demais são instituições acadêmicas. Outros membros do projeto são Harvard Brigham \& Women's Hospital, University of Pittsburgh e Columbia University \cite{itk-page}.
 
-Quanto à linguagem, o ITK também é escrito em C++, mas possui interface para utilização a partir de outras linguagens. É um conjunto de ferramentas que provê uma grande quantidade de algoritmos pré-codificados e testados para fazer registro e segmentação de imagens, bem como rotinas para leitura e decodificação de diversos padrões de arquivos.
+Quanto à linguagem, ITK também é escrito em C++, mas possui interface para utilização a partir de outras linguagens. É um conjunto de ferramentas que provê uma grande quantidade de algoritmos pré-codificados e testados para fazer registro e segmentação de imagens, bem como rotinas para leitura e decodificação de diversos padrões de arquivos.
 
 O ITK é também distribuído livremente, com código-fonte aberto e uma licença bem semelhante à do VTK, impondo poucas restrições ao seu uso, modificação e distribuição.
 
@@ -71,7 +71,8 @@ O ITK é também distribuído livremente, com código-fonte aberto e uma licenç
 
 \subsection{FANN}
 
-A FANN é uma biblioteca de RNAs open source. Ela é simples, bem documentada, versátil, fácil de usar e rápida. A FANN é implementada em C, mas possui versões para C++, Java, Perl, PHP, Python, Ruby, Delphi, Haskel, Mathematica, Matlab, Prolog, Octave, Smalltalk e .NET. Ela foi desenvolvida por Steffen Nissen do departamento de Ciência da Computação da Universidade de Copenhagen, que, logo depois, liberou o código sob a licença GPL.
+A FANN %TODO: (COLOCAR O SIGNIFICADO!!!)
+ é uma biblioteca de RNAs open source. Ela é simples, bem documentada, versátil, fácil de usar e rápida. A FANN é implementada em C, mas possui versões para C++, Java, Perl, PHP, Python, Ruby, Delphi, Haskel, Mathematica, Matlab, Prolog, Octave, Smalltalk e .NET. Ela foi desenvolvida por Steffen Nissen do departamento de Ciência da Computação da Universidade de Copenhagen, que, logo depois, liberou o código sob a licença GPL.
 
 A biblioteca implementa uma RNA de múltiplas camadas totalmente ou esparsamente conectada. Com a FANN, a criação de uma RNA é feita em três níveis. O primeiro é a descrição da rede, o segundo é a criação das conexões da primeira camada, e depois as interconexões das demais camadas. Ela pode trabalhar tanto com números em ponto flutuante quanto números inteiros. Além disso, ela possui um framework para que seja fácil o treinamento a partir de conjuntos da dados.
 
@@ -81,7 +82,7 @@ Grande   parte  da   construção    da  ferramenta    foi constituída pelo des
 
 \subsection{Segmentação de imagens de tomografia computadorizada dos pulmões}
 
-O objetivo deste algoritmo é gerar a partir de uma fatia da imagem de tomografia computadorizada, duas imagens contendo cada uma apenas um dos pulmões com as partes que não representam ele pretas.
+O objetivo deste algoritmo é gerar a partir de uma fatia da imagem de tomografia computadorizada, duas imagens contendo cada uma apenas um dos pulmões com as partes que não pertencem a eles pretas.
 
 % TODO: normalização da imagem
 
@@ -94,7 +95,7 @@ São 5 as etapas desse algoritmo:
  \item Identificar cada um dos pulmões e se necessário separa-los.
 \end{enumerate}
 
-Para subtrair a região que não pertence ao corpo do paciente, são removidos todos os pixeis que estão conectados e possuem o mesmo nível de cinza dos pixeis da borda da imagem. Como demonstrado na figura \ref{fig:remocao}.
+Para subtrair a região que não pertence ao corpo do paciente, são removidos todos os pixels que estão conectados e possuem o mesmo nível de cinza dos pixels da borda da imagem. Como demonstrado na figura \ref{fig:remocao}.
 
 \begin{figure}[ht]
  \begin{center}
@@ -105,7 +106,7 @@ Para subtrair a região que não pertence ao corpo do paciente, são removidos t
  \label{fig:remocao}
 \end{figure}
 
-A eliminação das regiões que não fazem parte do pulmão é feita analisando-se todos os pixeis que representam o pulmão (brancos) na imagem, de maneira que se a soma dos pixeis vizinhos que representam o fundo (pretos) exceder em 2 ou mais a soma dos pixeis vizinhos que representam o pulmão, então esse pixel se tornará parte do fundo. São considerados pixeis vizinhos aqueles que se encontram no quadrado de 5x5 tendo como centro o pixel analisado.
+A eliminação das regiões que não fazem parte do pulmão é feita analisando-se todos os pixels que representam o pulmão (brancos) na imagem, de maneira que se a soma dos pixels vizinhos que representam o fundo (pretos) exceder em 2 ou mais a soma dos pixels vizinhos que representam o pulmão, então esse pixel se tornará parte do fundo. São considerados pixels vizinhos aqueles que se encontram no quadrado de 5x5 tendo como centro o pixel analisado.
 
 Esse procedimento é realizado até 40 vezes, ou seja, ele será executado uma vez, se algum pixel for alterado, ele será executado novamente, até que nenhum pixel seja alterado ou que ele já tenha se repetido 40 vezes, podemos ver um exemplo na figura \ref{fig:clean}.
 
@@ -118,19 +119,19 @@ Esse procedimento é realizado até 40 vezes, ou seja, ele será executado uma v
  \label{fig:clean}
 \end{figure}
 
-Para remover os buracos dentro do pulmão e juntar pedaços separados de um mesmo pulmão, é realizado uma operação morfológica de fechamento utilizando como elemento estruturante um círculo de raio 6 pixeis, como podemos ver na figura \ref{fig:fechamentoAplicado}. Essa operação pode causar com que pulmões muito próximos se juntem, tornando a próxima etapa ainda mais importante.
+Para remover os buracos dentro do pulmão e juntar pedaços separados de um mesmo pulmão, é realizado uma operação morfológica de fechamento utilizando como elemento estruturante um círculo de raio 6 pixels, como podemos ver na figura \ref{fig:fechamentoAplicado}. Essa operação pode causar com que pulmões muito próximos se juntem, tornando a próxima etapa ainda mais importante.
 
 \begin{figure}[ht]
  \begin{center}
   \subfigure[Antes do fechamento.]{\includegraphics[width=2.9in]{imagens/TCpulmaoCleaning.png}}
   \subfigure[Depois do fechamento.]{\includegraphics[width=2.9in]{imagens/TCpulmaoBinaryBall.png}}
  \end{center}
- \caption{Imagem de TC antes e depois da operação morfológica de fechamento utilizando um círculo de raio 6 pixeis.}
+ \caption{Imagem de TC antes e depois da operação morfológica de fechamento utilizando um círculo de raio 6 pixels.}
  \label{fig:fechamentoAplicado}
 \end{figure}
 
 % TODO: melhorar
-Para identificar os pulmões primeiro verifica-se quantas regiões conectadas existem, se existir apenas uma, realiza-se uma busca a partir do centro da imagem pela coluna que possuir menos pixeis que representam o pulmão, sendo que a busca é parada quando a quantidade desses pixeis aumenta, podemos ver um exemplo dessa etapa na figura \ref{fig:separacao}.
+Para identificar os pulmões primeiro verifica-se quantas regiões conectadas existem, se existir apenas uma, realiza-se uma busca a partir do centro da imagem pela coluna que possuir menos pixels que representam o pulmão, sendo que a busca é parada quando a quantidade desses pixels aumenta. Com essa estratégia paramos o algoritmo antes de encontrarmos estruturas pulmonares menores. Podemos ver um exemplo dessa etapa na figura \ref{fig:separacao}.
 
 \begin{figure}[ht]
  \begin{center}
