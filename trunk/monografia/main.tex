@@ -1,12 +1,12 @@
 \documentclass[tc]{texufpel}
 
 \usepackage[brazilian]{babel}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{array}
-%\usepackage{abntcite}
 \usepackage{times}              % pacote para usar fonte Adobe Times
 \usepackage{mathptmx}          % p/ usar fonte Adobe Times nas fórmulas
 \usepackage{setspace}
@@ -24,10 +24,10 @@
         Coordenador do curso: Prof.~Dr.~Lucas Ferrari Oliveira\\
 }
 
-% TODO: keywords
 \keyword{processamento de imagens}
 \keyword{tomografia computadorizada}
-\keyword{pulmão}
+\keyword{redes neurais artificiais}
+\keyword{recuperação de imagens baseada em conteúdo}
 
 % Desencorajar fortemente a hifenização, já que não é permitido
 \hyphenpenalty=15000
@@ -65,11 +65,6 @@
 	\item[VTK] Conjunto de ferramentas para visualização (Visualization Toolkit)
 \end{listofabbrv}
 
-%\begin{listofsymbols}{$\alpha\beta\pi\omega$}
-%       \item[$\sum{\frac{a}{b}}$] Somatório do produtório
-%       \item[$\alpha\beta\pi\omega$] Fator de inconstância do resultado
-%\end{listofsymbols}
-
 \tableofcontents
 
 \include{intro}
@@ -79,8 +74,7 @@
 \include{resultados}
 \include{conclusoes}
 
-% TODO: arrumar referencias
-\bibliographystyle{abnt-alf}
+\bibliographystyle{abnt}
 \bibliography{referencias}
 
 \end{document}
