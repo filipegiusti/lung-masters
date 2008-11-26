@@ -12,76 +12,70 @@ A tomografia era um dos mais importantes métodos de diagnóstico radiológico a
 
 A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades causadas por doenças ou acidentes \cite{oliveira}.
 
-As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de TC a fonte e os detectores de raios x são movidos para posições pre-determinadas e então obtem diversas imagens, como demonstrado \ref{fig:tc1}, as quais representam fatias finas do paciente.
+As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de TC a fonte e os detectores de raios x são movidos para posições pre-determinadas e então obtem diversas imagens, como demonstrado na fig.~\ref{fig:tc1}, as quais representam fatias finas do paciente.
 
 \begin{figure}[ht]
  \begin{center}
   \includegraphics{imagens/tc.jpg}
  \end{center}
- \caption{Demonstração de como uma máquina de TC obtém as fatias de imagem do paciente.}
-% TODO: referencia = http://www.sprawls.org/resources/CTIMG/classroom.htm
+ \caption[Demonstração de como uma máquina de TC obtém as fatias de imagem do paciente.]{Demonstração de como uma máquina de TC obtém as fatias de imagem do paciente.\\* \\* Fonte: \citealt{sprawls}}
  \label{fig:tc1}
 \end{figure}
 
-A forma de movimentação depende da tecnologia da máquina utilizada. Nas máquinas mais antigas, eram tiradas várias fotos de uma fatia do paciente, apenas circulando em torno dele, e então depois a "cama" onde o paciente deita-se se move, para outra rodada de fotos, como em \ref{fig:tc2}. Hoje em dia, temos as máquinas helicoidais, os quais descrevem uma hélice em torno do paciente, em vez de uma sucessão de círculos completo. Desta forma é obtida informação de uma forma contínua.
+A forma de movimentação depende da tecnologia da máquina utilizada. Nas máquinas mais antigas, eram tiradas várias fotos de uma fatia do paciente, apenas circulando em torno dele, e então depois a "cama" onde o paciente deita-se se move, para outra rodada de fotos, como na fig.~\ref{fig:tc2}. Hoje em dia, temos as máquinas helicoidais, os quais descrevem uma hélice em torno do paciente, em vez de uma sucessão de círculos completo. Desta forma é obtida informação de uma forma contínua.
 
 \begin{figure}[ht]
  \begin{center}
   \includegraphics{imagens/tc2.jpg}
  \end{center}
- \caption{Forma de movimentação de máquinas de TC de tecnologia antiga.}
-% TODO: referencia = http://www.sprawls.org/resources/CTIMG/classroom.htm
+ \caption[Forma de movimentação de máquinas de TC de tecnologia antiga.]{Forma de movimentação de máquinas de TC de tecnologia antiga.\\* \\* Fonte: \citealt{sprawls}}
  \label{fig:tc2}
 \end{figure}
 
-O resultado de cada pixel das fatias obtidas é a soma das energias bloqueadas pelos tecidos do corpo, e sabe-se exatamente em que ângulo cada fatia foi tirada, por isso após a aquisição das seções transversais, é possivel a reconstrução da imagem em até 3 dimensões. Para a reconstrução é utilizada uma técnica matemática chamada de projeção retrógrada, ou outras, como a transformada de Fourier.
+O resultado de cada pixel das fatias obtidas é a soma das energias bloqueadas pelos tecidos do corpo, e sabe-se exatamente em que ângulo cada fatia foi tirada, por isso após a aquisição das seções transversais, é possível a reconstrução da imagem em até 3 dimensões. Para a reconstrução é utilizada uma técnica matemática chamada de projeção retrógrada, ou outras, como a transformada de Fourier.
 
-% TODO: expandir ou nao expandir? eis a questão.
-
-Essas imagens são geralmente de 512x512 pixels, embora alguns equipamentos possuam uma resolução de 1024x1024 pixels. O tamanho do pixel é da ordem de 1mm, podendo chegar em algumas unidades a valores em torno de 0,1mm.
-% TODO: referencia
+O campo de visão de uma imagem de TC representa o tamanho máximo do objeto em estudo que ocupa a matriz de pixels, por exemplo, uma matriz 512x512 pixels, se ela possuir um campo de visão de 12cm, cada pixel vai representar cerca de 0,023cm. Assim para o estudo de estruturas delicadas, como o ouvido interno, o campo de visão é pequeno, enquanto que para o estudo do abdômen o campo de visão é maior, em torno de 50cm (se tiver uma matriz de 512x512, então o tamanho da região que cada pixel representa vai ser próximo de 1 mm) \cite{tomo}.
 
 \subsection{Coeficiente de Hounsfield}
 
-A escala da unidade hounsfield - UH - é uma transformação linear da medida do coeficiente de atenuação linear original, do qual a radiodensidade da água destilada a temperatura e pressão ambientes é definida como 0 UH, enquanto a radiodensidade do ar a temperatura e pressão ambientes é -1000 UH. Para um material X com coeficiente de atenuação $\mu$X, o correspondente valor em unidades Hounsfiled é dado por \ref{equa:hounsfield}.
+A escala da unidade hounsfield - UH - é uma transformação linear da medida do coeficiente de atenuação linear original, do qual a radiodensidade da água destilada a temperatura e pressão ambientes é definida como 0 UH, enquanto a radiodensidade do ar a temperatura e pressão ambientes é -1000 UH. Para um material X com coeficiente de atenuação $\mu$X, o correspondente valor em unidades Hounsfiled é dado por:
 
 \begin{equation}
 	\frac{\mu_X-\mu_{H_2O}}{\mu_{H_2O}-\mu_{ar}}\times 1000
-	\label{equa:hounsfield}
 \end{equation}
 
-onde $\mu_{H_2O}$ e $\mu_{ar}$ são os coeficientes de atenuação linear da água e do ar, respectivamente, a pressão e temperatura ambientes. Então uma mudança de uma UH representa uma mudança de 0,1\% da diferença do coeficiente de atenuação entre a água e o ar, ou aproximadamente 0,1\% do coeficiente de atenuação da água, já que o coeficiente de atenuação do ar é aproximadamente 0. Alguns valores Hounsfield conhecidos estão mostrados na \ref{tab:hounsfield}.
+onde $\mu_{H_2O}$ e $\mu_{ar}$ são os coeficientes de atenuação linear da água e do ar, respectivamente, a pressão e temperatura ambientes. Então uma mudança de uma UH representa uma mudança de 0,1\% da diferença do coeficiente de atenuação entre a água e o ar, ou aproximadamente 0,1\% do coeficiente de atenuação da água, já que o coeficiente de atenuação do ar é aproximadamente 0. Alguns valores Hounsfield conhecidos estão mostrados na tab.~\ref{tab:hounsfield}.
 
 \begin{table}
- \label{tab:hounsfield}
  \caption{Valores Hounsfield comuns.}
- \cite{oliveira} % TODO: funciona?
  \begin{center}
- \begin{tabular}{|l|r|}
+ \begin{tabular}{l|r}
  \hline
-%TODO: trocar palavra tecido
  	\textbf{Tecido} & \textbf{Unidade Hounsfield} \\ \hline
- 	Ar & -1000 \\ \hline
- 	Pulmão & -900 a -400 \\ \hline
- 	Gordura & -110 a -65 \\ \hline
- 	Água & 0 \\ \hline
- 	Rim & 35 \\ \hline
- 	Sangue normal & 35 a 55 \\ \hline
- 	Sangue coagulado & 80 \\ \hline
- 	Músculo & 40 a 60 \\ \hline
- 	Fígado & 50 a 85 \\ \hline
+ 	Ar & -1000 \\
+ 	Pulmão & -900 a -400 \\
+ 	Gordura & -110 a -65 \\
+ 	Água & 0 \\
+ 	Rim & 35 \\
+ 	Sangue normal & 35 a 55 \\
+ 	Sangue coagulado & 80 \\
+ 	Músculo & 40 a 60 \\
+ 	Fígado & 50 a 85 \\
  	Ossos & 130 a 250 \\
  \hline
  \end{tabular}
  \end{center}
+ \begin{description}
+  \item Fonte: \citealt{oliveira}
+ \end{description}
+ \label{tab:hounsfield}
 \end{table}
 
 \subsection{Técnica de Janelas}
 
-O olho humano tem a capacidade de diferenciar uma escala de cinzas de 10 a 60 tons (a maioria das pessoas distingue 20 diferentes tons), enquanto na tomografia há no mínimo 2000 tons. A técnica de janelas é na verdade uma forma de mostrar apenas uma faixa de tons de cinza que nos interessa, de forma a adaptar a nossa capacidade de visão aos dados obtidos pelo tomógrafo.
-%TODO: referencia
+O olho humano tem a capacidade de diferenciar uma escala de cinzas de 10 a 60 tons (a maioria das pessoas distingue 20 diferentes tons), enquanto na tomografia há no mínimo 2000 tons. A técnica de janelas é na verdade uma forma de mostrar apenas uma faixa de tons de cinza que nos interessa, de forma a adaptar a nossa capacidade de visão aos dados obtidos pelo tomógrafo \cite{tomo}.
 
-Precisamos definir os valores máximo e mínimo da janela, para mapear os valores em UH em níveis de cinza. Todos os valores abaixo do valor mínimo serão mapeados como preto e todos acima do máximo como branco. Para definir estes valores, especificamos o tamanho da janela em UH e o centro dela, como podemos ver em \ref{fig:tc_janela}.
+Precisamos definir os valores máximo e mínimo da janela, para mapear os valores em UH em níveis de cinza. Todos os valores abaixo do valor mínimo serão mapeados como preto e todos acima do máximo como branco. Para definir estes valores, especificamos o tamanho da janela em UH e o centro dela, como podemos ver na fig.~\ref{fig:tc_janela}.
 
 \begin{figure}[ht]
  \begin{center}
@@ -91,23 +85,25 @@ Precisamos definir os valores máximo e mínimo da janela, para mapear os valore
  \label{fig:tc_janela}
 \end{figure}
 
-O uso de diferentes janelas em tomografia permite por exemplo o estudo dos ossos com distinção entre a cortical e a medular óssea ou o estudo de partes moles com a distinção, por exemplo, no cérebro entre a substância branca e a cinzenta. A mesma imagem pode ser mostrada com diferentes ajustes da janela, de modo a mostrar diferentes estruturas de cada vez. Não é possível usar um só ajuste da janela para ver, por exemplo, detalhes ósseos e de tecido adiposo ao mesmo tempo. Alguns valores comuns de janela estão na \ref{tab:janela}.
+O uso de diferentes janelas em tomografia permite por exemplo o estudo dos ossos com distinção entre a cortical e a medular óssea ou o estudo de partes moles com a distinção, por exemplo, no cérebro entre a substância branca e a cinzenta. A mesma imagem pode ser mostrada com diferentes ajustes da janela, de modo a mostrar diferentes estruturas de cada vez. Não é possível usar um só ajuste da janela para ver, por exemplo, detalhes ósseos e de tecido adiposo ao mesmo tempo. Alguns valores comuns de janela estão na tab.~\ref{tab:janela}.
 
 \begin{table}
- \label{tab:janela}
  \caption{Valores comuns de janela para certos tipos de exame.}
 % TODO: referencia
 % TODO: fazer tabela
  \begin{center}
- \begin{tabular}{|l|r|r|}
+ \begin{tabular}{l|r|r}
  \hline
- 	\textbf{Exame} & \textbf{Largura da janela} & \textbf{Centro da janela} \\ \hline
- 	Ar & -1000 \\ \hline
- 	Pulmão & -900 a -400 \\ \hline
- 	Gordura & -110 a -65 \\
+ 	\textbf{Tecido a ser destacado} & \textbf{Largura da janela} & \textbf{Centro da janela} \\
+ 	Tórax na altura do mediastino & 500 & 39 \\
+ 	Pulmão & 850 & -500\\
  \hline
  \end{tabular}
  \end{center}
+ \begin{description}
+  \item Fonte: \citealt{oliveira}
+ \end{description}
+ \label{tab:janela}
 \end{table}
 
 \subsection{Padrão DICOM}
@@ -139,7 +135,7 @@ Durante o processo de threshold, os pixels são dividos em dois grupos, na forma
 
 O parâmetro chave que determina a eficiência de um threshold é o valor de threshold usado. Diversos métodos existem para a escolha do valor de threshold, ele pode ser escolhido manualmente, ou por algum algoritmo que o compute, dependendo da imagem, esse tipo de threshold mais conhecido como thresolhd automático. Um método simples é escolher o valor da media ou da mediana. Geralmente esse algoritmo só irá atingir bons resultados se a imagem de entrada possuir pouco ruído e for uniforme. Uma abordagem um pouco mais sofisticada seria gerar o histograma da intensidade dos pixels da imagem e escolher como threshold o valor de vale.
 
-A técnica de threshold adaptivo, que pode ser vista em \ref{fig:threshold}, consiste em escolher um valor inicial arbitrário de threshold ($T^0$), realizar o threshold e calcular o valor médio dos pixels acima ($\mu_{acima}$) e abaixo ($\mu_{abaixo}$) do valor de threshold. Então obter um novo threshold ($T^{i+1}$), de acordo com \ref{equa:thresholdAdaptativo}. Com o novo threshold o processo se inicia novamente, e só para quando atingir a convergência, ou seja, o novo valor for igual ao antigo valor ($T^i = T^{i+1}$). Este algoritmo garante a convergência até um mínimo local.
+A técnica de threshold adaptivo, que pode ser vista na fig.~\ref{fig:threshold}, consiste em escolher um valor inicial arbitrário de threshold ($T^0$), realizar o threshold e calcular o valor médio dos pixels acima ($\mu_{acima}$) e abaixo ($\mu_{abaixo}$) do valor de threshold. Então obter um novo threshold ($T^{i+1}$), de acordo com a equação~ \ref{equa:thresholdAdaptativo}. Com o novo threshold o processo se inicia novamente, e só para quando atingir a convergência, ou seja, o novo valor for igual ao antigo valor ($T^i = T^{i+1}$). Este algoritmo garante a convergência até um mínimo local.
 
 \begin{equation}
  T^{i+1} = \frac{\mu_{acima}+\mu_{abaixo}}{2}
@@ -163,7 +159,7 @@ A linguagem utilizada na morfologia matemática é a teoria dos conjuntos. Conju
 
 Então temos a morfologia binária que se aplica sobre imagens binárias e a morfologia cinza que se aplica a imagens em níveis de cinza. Uma operação morfológica binária é completamente determinada a partir da vizinhaça examinada ao redor do ponto central e do algoritmo utilizado, Já na morfologia cinza, na vizinhança de cada pixel, ou numa parte da vizinhança, é necessário conhecer o valor do pixel mais escuro, e o valor do mais claro. O valor do pixel resultando corresponde a uma combinação particular desses dois. Portanto o tamanho e a forma da vizinhança, as regiões de pesquisa dos valores máximo e minímo e o algoritmo utilizado, determinam uma operação de morfologia cinza \cite{facon}.
 
-As operações fundamentais da morfologia matemática são a erosão e a dilatação. Essas operações necessitam do que chamamos de elementos estruturantes. Estes elementos, determinam quais pixels da imagem são retirados (no caso de uma erosão) ou quais são adicionados (no caso de uma dilatação) aos objetos. Elementos estruturantes são simplesmente imagens binárias em que um dos pontos é definido como centro. Como exemplos largamente utilizados podemos citar: um quadrado de 3x3 pixels (figura \ref{fig:ee_quadrado}), uma cruz definida pelo pontos {(-1,0),(0,-1),(0,0),(0,1),(1,0)} (figura \ref{fig:ee_cruz}) e um círculo de raio qualquer (figura \ref{fig:ee_circulo}).
+As operações fundamentais da morfologia matemática são a erosão e a dilatação. Essas operações necessitam do que chamamos de elementos estruturantes. Estes elementos, determinam quais pixels da imagem são retirados (no caso de uma erosão) ou quais são adicionados (no caso de uma dilatação) aos objetos. Elementos estruturantes são simplesmente imagens binárias em que um dos pontos é definido como centro. Como exemplos largamente utilizados podemos citar: um quadrado de 3x3 pixels (fig.~\ref{fig:ee_quadrado}), uma cruz definida pelo pontos {(-1,0),(0,-1),(0,0),(0,1),(1,0)} (fig.~\ref{fig:ee_cruz}) e um círculo de raio qualquer (fig.~\ref{fig:ee_circulo}).
 
 \begin{figure}[ht]
  \begin{center}
@@ -179,8 +175,8 @@ As operações fundamentais da morfologia matemática são a erosão e a dilata�
 
 \subsection{Erosão e Dilatação}
 
-Na erosão, o elemento estruturante é sobreposto à imagem em todas as posições possíveis. O pixel que fica na posição da origem do elemento estruturante é modificado da seguinte forma: se o elemento estiver em parte sobre o objeto e em parte sobre o fundo, o pixel que está na posição da origem passa a ser fundo. Ou seja, um pixel só pode permanecer no objeto se, quando a origem do elemento estruturante estiver sobre ele, todo o elemento estiver sobre o objeto, como podemos ver na \ref{fig:erosao}.
-
+Na erosão, o elemento estruturante é sobreposto à imagem em todas as posições possíveis. O pixel que fica na posição da origem do elemento estruturante é modificado da seguinte forma: se o elemento estiver em parte sobre o objeto e em parte sobre o fundo, o pixel que está na posição da origem passa a ser fundo. Ou seja, um pixel só pode permanecer no objeto se, quando a origem do elemento estruturante estiver sobre ele, todo o elemento estiver sobre o objeto, como podemos ver na fig.~\ref{fig:erosao}.
+\\ \\
 Efeitos da erosão:
 
 \begin{itemize}
@@ -191,8 +187,8 @@ Efeitos da erosão:
 \end{itemize}
 
 
-Na dilatação o que muda é que quando o elemento está em parte sobre o fundo e em parte sobre o objeto, o seu centro passa a ser objeto, como vemos na \ref{fig:dilatacao}. Isto aumenta o tamanho do objeto, como o nome dilatação sugere.
-
+Na dilatação o que muda é que quando o elemento está em parte sobre o fundo e em parte sobre o objeto, o seu centro passa a ser objeto, como vemos na fig.~\ref{fig:dilatacao}. Isto aumenta o tamanho do objeto, como o nome dilatação sugere.
+\\ \\
 Efeitos da dilatação:
 
 \begin{itemize}
@@ -216,9 +212,9 @@ Efeitos da dilatação:
 
 Erosão e dilatação podem corrigir defeitos numa imagem com furos, conexões. Porém, o objeto alterado por essas operações não mantém o mesmo tamanho. A erosão reduz e a dilatação aumenta. Com a abertura e o fechamento binários, podemos manter aproximadamente as características de forma e tamanho do objeto.
 
-A abertura é obtida através da erosão, seguida de uma dilatação da imagem resultante com o mesmo elemento estruturante. Esta operação é capaz de eliminar pequenas partículas inferiores em tamanho ao elemento estruturante quase sem modificar o tamanho das outras entidades, além de nivelar os contornos pelo interior, como podemos ver na \ref{fig:abertura}.
+A abertura é obtida através da erosão, seguida de uma dilatação da imagem resultante com o mesmo elemento estruturante. Esta operação é capaz de eliminar pequenas partículas inferiores em tamanho ao elemento estruturante quase sem modificar o tamanho das outras entidades, além de nivelar os contornos pelo interior, como podemos ver na fig.~\ref{fig:abertura}.
 
-Já o fechamento é o inverso; dilatação, seguida de erosão. Ele conecta partículas próximas, suaviza as bordas pelo exterior e preenche os buracos inferiores em tamanho em relação ao elemento estruturante que estejam no interior das partículas, visto na \ref{fig:fechamento}.
+Já o fechamento é o inverso; dilatação, seguida de erosão. Ele conecta partículas próximas, suaviza as bordas pelo exterior e preenche os buracos inferiores em tamanho em relação ao elemento estruturante que estejam no interior das partículas, visto na fig.~\ref{fig:fechamento}.
 
 \begin{figure}[ht]
  \begin{center}
@@ -245,7 +241,7 @@ Uma primitiva é um conjunto conectado de pixels, caracterizado por um conjunto 
 
 Matriz de co-ocorrência é um dos métodos de processamento de imagens utilizado para caracterizar texturas. Ele descreve uma imagem, ou uma região de interesse na imagem, em termos da relação entre os valores dos pixels com os valores dos pixels vizinhos.
 
-Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a distribuição dos valores co-ocorrentes num dado deslocamento. Matematicamente, a matrix de co-ocorrência $C$ é definida a partir de uma imagem $I$ de $N x M$, parametrizada com um deslocamento de ($\Delta{}x,\Delta{}y$), como \ref{equa:coocur-matriz}.
+Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a distribuição dos valores co-ocorrentes num dado deslocamento. Matematicamente, a matrix de co-ocorrência $C$ é definida a partir de uma imagem $I$ de $N x M$, parametrizada com um deslocamento de ($\Delta{}x,\Delta{}y$), como podemos ver abaixo:
 
 \begin{equation}
  C(i,j)=\sum_{p=1}^n\sum_{q=1}^m
@@ -253,7 +249,6 @@ Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a dis
 	1, & $\mbox{se }I(p,q)=i\mbox{ e }I(p+\Delta{}x,q+\Delta{}y)=j$\cr
 	0, & $\mbox{senão}$\cr
  }
- \label{equa:coocur-matriz}
 \end{equation}
 
 Para poder ser utilizada, a matriz de co-ocorrência precisa ser normalizada, que poder ser obtida dividindo cada elemento da matriz pelo número total de pares de pixel.
@@ -262,46 +257,46 @@ Percebemos que o deslocamento ($\Delta{}x,\Delta{}y$) faz com que a matriz de co
 
 \subsection{Características de Haralick}
 
-\cite{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser usadas para classificar imagens de textura. Abaixo estão descritas algumas delas.
+\citealt{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser usadas para classificar imagens de textura. Abaixo estão descritas algumas delas.
 
 Considere N como sendo o número de níveis de cinza da matriz de co-ocorrência e.
 
-A Energia, também conhecida como segundo momento angular, avalia a uniformidade textural em uma imagem. A fórmula que descreve a energia pode ser vista em \ref{equa:hara-energia}.
+A Energia, também conhecida como segundo momento angular, avalia a uniformidade textural em uma imagem. A fórmula que descreve a energia pode ser vista na equação~\ref{equa:hara-energia}.
 
 \begin{equation}
  \sum_{i=0}^{N-1}\sum_{j=0}^{N-1} C(i,j)^2
  \label{equa:hara-energia}
 \end{equation}
 
-A Entropia mede a desordem em uma imagem, ou seja, o grau de dispersão de níveis de cinza. Ela é calculada como em \ref{equa:hara-entropia}.
+A Entropia mede a desordem em uma imagem, ou seja, o grau de dispersão de níveis de cinza. Ela é calculada como na equação \ref{equa:hara-entropia}.
 
 \begin{equation}
  -\sum_{i=0}^{N-1}\sum_{j=0}^{N-1} C(i,j) \; log(C(i,j))
  \label{equa:hara-entropia}
 \end{equation}
 
-O contraste, mede a presença de transição abrupta de níveis de cinza (bordas) na imagem. Ele é definido como a equação \ref{equa:hara-contraste}
+O contraste, mede a presença de transição abrupta de níveis de cinza (bordas) na imagem. Ele é definido como:
 
 \begin{equation}
  \sum_{x=0}^{N-1} x^2 \left\{\sum_{i=0}^{N-1}\sum_{j=0}^{N-1} C(i,j)\right\},|i - j| = x
  \label{equa:hara-contraste}
 \end{equation}
 
-A homogeneidade local, também conhecido como momento diferencial inverso, como o próprio nome sugere, mede a homogeneidade da imagem. Sua fórmula é a equação \ref{equa:hara-homogeneidade}.
+A homogeneidade local, também conhecido como momento diferencial inverso, como o próprio nome sugere, mede a homogeneidade da imagem. Sua fórmula é:
 
 \begin{equation}
  \sum_{i=0}^{N-1}\sum_{j=0}^{N-1} \frac{1}{1 + (i - j)^2} \;C(i,j)
  \label{equa:hara-homogeneidade}
 \end{equation}
 
-A correlação mede a dependência linear de um nível de cinza em relação aos vizinhos. Ela é calculada como em \ref{equa:hara-correlação}.
+A correlação mede a dependência linear de um nível de cinza em relação aos vizinhos. Ela é calculada como na equação~\ref{equa:hara-correlação}.
 
 \begin{equation}
  \frac{\sum\limits_{i=0}^{N-1}\sum\limits_{j=0}^{N-1} i j\; C(i,j) - \mu_{i}^2}{\sigma_{i}^2}
  \label{equa:hara-correlação}
 \end{equation}
 
-Onde $\mu_{i}$ representa a média ponderada, como definido em \ref{equa:hara-media}. Por causa da simetria da matriz de co-ocorrência, não é necessário calcular a média ponderada de $\mu_{j}$. Já $\sigma_{i}$ representa o desvio padrão, como na equação \ref{equa:hara-desvio}, que também se beneficia da simetria.
+Onde $\mu_{i}$ representa a média ponderada, como definido na equação~\ref{equa:hara-media}. Por causa da simetria da matriz de co-ocorrência, não é necessário calcular a média ponderada de $\mu_{j}$. Já $\sigma_{i}$ representa o desvio padrão, como na equação~\ref{equa:hara-desvio}, que também se beneficia da simetria.
 
 \begin{equation}
  \sum_{j=0}^{N-1}\sum_{i=0}^{N-1} i \cdot C(i, j)
