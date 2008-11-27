@@ -17,6 +17,10 @@
 #include "itkRegionOfInterestImageFilter.h"
 #include "Segmentation.hpp"
 
+#include "itkScalarImageTextureCalculator.h"
+#include "itkVectorContainer.h"
+#include "itkGreyLevelCooccurrenceMatrixTextureCoefficientsCalculator.h"
+
 #define IMAGE_DIMENSIONS 2
 #define IMAGE_DATA_EXT short
 #define IMAGE_DATA_INT unsigned char
@@ -38,6 +42,8 @@ typedef itk::BinaryDilateImageFilter < ImageTypeInt, ImageTypeInt, StructuringEl
 typedef itk::RegionOfInterestImageFilter< ImageTypeInt, ImageTypeInt > ROIFilterType;
 typedef itk::ImageRegionConstIterator< ImageTypeInt > ConstIteratorType;
 typedef itk::ImageRegionIterator< ImageTypeInt > IteratorType;
+
+typedef itk::Statistics::ScalarImageTextureCalculator<ImageTypeInt> TextureCalculator;
 
 using namespace std;
 
@@ -242,6 +248,11 @@ void invertBinaryValues(ImageTypeInt *image) {
 int main (int argc, char *argv[]) {
 	if (argc != 2) {
 		printf("Usage: Segment filename");
+		return 1;
+	}
+	
+	if(strlen(argv[1]) > 200 ) {
+		printf("Nome do arquivo muito grande.");
 		return 1;
 	}
 	
@@ -511,14 +522,63 @@ int main (int argc, char *argv[]) {
 	roiFilterRight->SetInput(maskFilterRight->GetOutput());
 	roiFilterRight->Update();
 
+	char filename[230];
+	
 	WriterType::Pointer writer = WriterType::New();
-	writer->SetFileName( "leftLung.dcm" );
+	strcpy(filename, argv[1]);
+	strcat(filename, "_left.dcm");
+	writer->SetFileName( filename );
 	writer->SetInput(roiFilterLeft->GetOutput());
 	writer->Update();
-	writer->SetFileName( "rightLung.dcm" );
+	strcpy(filename, argv[1]);
+	strcat(filename, "_right.dcm");
+	writer->SetFileName( filename );
 	writer->SetInput(roiFilterRight->GetOutput());
 	writer->Update();
 	
+	{
+		TextureCalculator::Pointer calc  = TextureCalculator::New();
+		TextureCalculator::FeatureNameVector::Pointer featureVector = TextureCalculator::FeatureNameVector::New();
+		featureVector->InsertElement(0, itk::Statistics::Energy);
+		featureVector->InsertElement(1, itk::Statistics::Entropy);
+		featureVector->InsertElement(2, itk::Statistics::InverseDifferenceMoment);
+		featureVector->InsertElement(3, itk::Statistics::Inertia);
+		featureVector->InsertElement(4, itk::Statistics::HaralickCorrelation);
+		calc->SetRequestedFeatures(featureVector);
+		
+		calc->SetInput(roiFilterLeft->GetOutput());
+		calc->Compute();
+
+		strcpy(filename, argv[1]);
+		strcat(filename, "_left.txt");
+		FILE *fp = fopen(filename, "w");
+		if (!fp) {
+			printf("Falha ao gravar caracteristicas.");
+			return 1;
+		}
+		
+		unsigned long size = calc->GetFeatureMeans()->Size();
+		for(x = 0; x < size; x++) {
+			fprintf(fp, "%d: %f\n",calc->GetRequestedFeatures()->GetElement(x), calc->GetFeatureMeans()->GetElement(x));
+		}
+		fclose(fp);
+		
+		calc->SetInput(roiFilterRight->GetOutput());
+		calc->Compute();
+
+		strcpy(filename, argv[1]);
+		strcat(filename, "_right.txt");
+		fp = fopen(filename, "w");
+		if (!fp) {
+			printf("Falha ao gravar caracteristicas.");
+			return 1;
+		}
+		
+		size = calc->GetFeatureMeans()->Size();
+		for(x = 0; x < size; x++) {
+			fprintf(fp, "%d: %f\n",calc->GetRequestedFeatures()->GetElement(x), calc->GetFeatureMeans()->GetElement(x));
+		}
+	}
 	return 0;
 }
 
