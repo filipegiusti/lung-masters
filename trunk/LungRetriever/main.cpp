@@ -1,9 +1,12 @@
+#include <InsightToolkit/Common/itkExceptionObject.h>
 #include <iostream>
+#include <InsightToolkit/Common/itkImageRegionConstIterator.h>
 #include <InsightToolkit/Common/itkImage.h>
 #include <InsightToolkit/Common/itkMetaDataDictionary.h>
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
-#include "itkBinaryThresholdImageFilter.h"
+#include <InsightToolkit/BasicFilters/itkBinaryThresholdImageFilter.h>
+#include <InsightToolkit/BasicFilters/itkRescaleIntensityImageFilter.h>
 #include "itkNeighborhoodConnectedImageFilter.h"
 #include "itkMaskNegatedImageFilter.h"
 #include "itkMaskImageFilter.h"
@@ -12,30 +15,33 @@
 #include "itkBinaryDilateImageFilter.h"
 #include "itkBinaryBallStructuringElement.h"
 #include "itkRegionOfInterestImageFilter.h"
-#include "itkGDCMImageIO.h"
 #include "Segmentation.hpp"
 
 #define IMAGE_DIMENSIONS 2
-#define IMAGE_DATA unsigned short
+#define IMAGE_DATA_EXT short
+#define IMAGE_DATA_INT unsigned char
 #define INITIAL_THRESHOLD_VALUE 128
 
-typedef itk::Image< IMAGE_DATA, IMAGE_DIMENSIONS > ImageType;
-typedef itk::ImageFileReader< ImageType > ReaderType;
-typedef itk::ImageFileWriter< ImageType > WriterType;
-typedef itk::BinaryThresholdImageFilter < ImageType, ImageType >  ThresholdFilterType;
-typedef itk::NeighborhoodConnectedImageFilter< ImageType, ImageType > ConnectedFilterType;
-typedef itk::MaskNegatedImageFilter<ImageType, ImageType, ImageType> MaskNegatedFilterType;
-typedef itk::MaskImageFilter<ImageType, ImageType> MaskFilterType;
-typedef itk::VotingBinaryIterativeHoleFillingImageFilter< ImageType > HoleFillingType;
-typedef itk::BinaryBallStructuringElement < IMAGE_DATA, IMAGE_DIMENSIONS > StructuringElementType;
-typedef itk::BinaryErodeImageFilter < ImageType, ImageType, StructuringElementType> ErodeFilterType;
-typedef itk::BinaryDilateImageFilter < ImageType, ImageType, StructuringElementType> DilateFilterType;
-typedef itk::RegionOfInterestImageFilter< ImageType, ImageType > ROIFilterType;
+typedef itk::Image< IMAGE_DATA_EXT, IMAGE_DIMENSIONS > ImageTypeExt;
+typedef itk::Image< IMAGE_DATA_INT, IMAGE_DIMENSIONS > ImageTypeInt;
+typedef itk::ImageFileReader< ImageTypeExt > ReaderType;
+typedef itk::ImageFileWriter< ImageTypeInt > WriterType;
+typedef itk::RescaleIntensityImageFilter< ImageTypeExt, ImageTypeInt > RescaleType;
+typedef itk::BinaryThresholdImageFilter < ImageTypeInt, ImageTypeInt >  ThresholdFilterType;
+typedef itk::NeighborhoodConnectedImageFilter< ImageTypeInt, ImageTypeInt > ConnectedFilterType;
+typedef itk::MaskNegatedImageFilter<ImageTypeInt, ImageTypeInt, ImageTypeInt> MaskNegatedFilterType;
+typedef itk::MaskImageFilter<ImageTypeInt, ImageTypeInt> MaskFilterType;
+typedef itk::VotingBinaryIterativeHoleFillingImageFilter< ImageTypeInt > HoleFillingType;
+typedef itk::BinaryBallStructuringElement < IMAGE_DATA_INT, IMAGE_DIMENSIONS > StructuringElementType;
+typedef itk::BinaryErodeImageFilter < ImageTypeInt, ImageTypeInt, StructuringElementType> ErodeFilterType;
+typedef itk::BinaryDilateImageFilter < ImageTypeInt, ImageTypeInt, StructuringElementType> DilateFilterType;
+typedef itk::RegionOfInterestImageFilter< ImageTypeInt, ImageTypeInt > ROIFilterType;
+typedef itk::ImageRegionConstIterator< ImageTypeInt > ConstIteratorType;
+typedef itk::ImageRegionIterator< ImageTypeInt > IteratorType;
 
-typedef itk::GDCMImageIO ImageIOType;
 using namespace std;
 
-int isThereMoreThan2Islands(ImageType *image) {
+int isThereMoreThan2Islands(ImageTypeInt *image) {
 	unsigned int x = image->GetLargestPossibleRegion().GetSize()[0];
 	unsigned int y = image->GetLargestPossibleRegion().GetSize()[1];
 	int hasWhite = 0;
@@ -43,50 +49,56 @@ int isThereMoreThan2Islands(ImageType *image) {
 	ConnectedFilterType::Pointer neighborhoodConnected = ConnectedFilterType::New();
 	MaskNegatedFilterType::Pointer maskNegatedFilter = MaskNegatedFilterType::New();
 	
-	ImageType::IndexType index;
+	ImageTypeInt::IndexType index;
 	for (int i = 0; i < x; i++) {
 		for (int j = 0; j < y; j++) {
 			index[0] = i;
 			index[1] = j;
 			if(image->GetPixel(index)) {
-				if(hasWhite)
-					return 1;
-				hasWhite = 1;
-				
-				neighborhoodConnected->SetInput( image );
-				neighborhoodConnected->SetLower(1);
-				neighborhoodConnected->SetUpper(1);
-				neighborhoodConnected->SetReplaceValue(1);//TODO: magic number
+			if(hasWhite)
+				return 1;
+			hasWhite = 1;
+			
+			neighborhoodConnected->SetInput( image );
+			neighborhoodConnected->SetLower(1);
+			neighborhoodConnected->SetUpper(1);
+			neighborhoodConnected->SetReplaceValue(1);//TODO: magic number
 				//Seeds
 				index[0] = i;
 				index[1] = j;
 				neighborhoodConnected->SetSeed(index);
-				ImageType::SizeType radius;
-				radius[0] = 0;
-				radius[1] = 0;
-				neighborhoodConnected->SetRadius(radius);
+			ImageTypeInt::SizeType radius;
+			radius[0] = 0;
+			radius[1] = 0;
+			neighborhoodConnected->SetRadius(radius);
 
-				maskNegatedFilter->SetInput1(image);
-				maskNegatedFilter->SetInput2(neighborhoodConnected->GetOutput());
-				maskNegatedFilter->Update();
+			maskNegatedFilter->SetInput1(image);
+			maskNegatedFilter->SetInput2(neighborhoodConnected->GetOutput());
+			maskNegatedFilter->Update();
 
-				image = maskNegatedFilter->GetOutput();
-			}
+			image = maskNegatedFilter->GetOutput();
 		}
+	}
 	}
 	return 0;
 }
 
-int smallerHeightPosition(ImageType *image) {
+int smallerHeightPosition(ImageTypeInt *image) {
 	unsigned int x = image->GetLargestPossibleRegion().GetSize()[0];
 	unsigned int y = image->GetLargestPossibleRegion().GetSize()[1];
 	int minHeight, minHeightPosition, tmp;
+	
+	if(x == 0 || y == 0) {
+		cout << "Imagem passada pra smallerHeightPosition() é inválida.";
+		exit(1);
+	}
+	
 	int halfWeight = x/2;
 	int foundFirst = 0;
 	
 	minHeight = 0;
 	minHeightPosition = halfWeight;
-	ImageType::IndexType index;
+	ImageTypeInt::IndexType index;
 	index[0] = halfWeight;
 	for (int j = 0; j < y; j++) {
 		index[1] = j;
@@ -97,7 +109,7 @@ int smallerHeightPosition(ImageType *image) {
 			break;
 		}
 	}
-
+	
 	int stopLeft = 0, stopRight = 0;
 	for (int i = 1; i < halfWeight; i++) {
 		if (!stopRight) {
@@ -152,8 +164,8 @@ int smallerHeightPosition(ImageType *image) {
 	return minHeightPosition;
 }
 
-int limit(int direction, ImageType *image){
-	ImageType::IndexType index;
+int limit(int direction, ImageTypeInt *image){
+	ImageTypeInt::IndexType index;
 	int limit = -1;
 	int backwards, max1, max2, inc;
 	char zero, um;
@@ -220,18 +232,35 @@ int limit(int direction, ImageType *image){
 	}
 }
 
-int main () {
-	ReaderType::Pointer reader = ReaderType::New();
-	reader->SetFileName("IM000011");
+void invertBinaryValues(ImageTypeInt *image) {
+	IteratorType iterator(image, image->GetLargestPossibleRegion());
+	for(iterator.GoToBegin(); !iterator.IsAtEnd(); ++iterator) {
+		iterator.Set(1 - iterator.Value());
+	}
+}
+
+int main (int argc, char *argv[]) {
+	if (argc != 2) {
+		printf("Usage: Segment filename");
+		return 1;
+	}
 	
-	IMAGE_DATA thresholdValue = INITIAL_THRESHOLD_VALUE;
-	IMAGE_DATA thresholdValueOLD = INITIAL_THRESHOLD_VALUE + 1;
-	ImageType::IndexType index;
+	ReaderType::Pointer reader = ReaderType::New();
+	reader->SetFileName(argv[1]);
+	
+	RescaleType::Pointer rescalerFilter = RescaleType::New();
+	rescalerFilter->SetInput(reader->GetOutput());
+	rescalerFilter->SetOutputMinimum(0);
+	rescalerFilter->SetOutputMaximum(255);
+	
+	IMAGE_DATA_INT thresholdValue = INITIAL_THRESHOLD_VALUE;
+	IMAGE_DATA_INT thresholdValueOLD = INITIAL_THRESHOLD_VALUE + 1;
+	ImageTypeInt::IndexType index;
 	ThresholdFilterType::Pointer thresholdFilter = ThresholdFilterType::New();
 	thresholdFilter->SetOutsideValue(1); //TODO: magic number
 	thresholdFilter->SetInsideValue(0); 
 	thresholdFilter->SetLowerThreshold(0);
-	thresholdFilter->SetInput(reader->GetOutput());
+	thresholdFilter->SetInput(rescalerFilter->GetOutput());
 	
 	while(thresholdValue != thresholdValueOLD) {
 		unsigned long long averageAbove, averageBelow;
@@ -242,20 +271,16 @@ int main () {
 		thresholdFilter->SetUpperThreshold(thresholdValue);
 		thresholdFilter->Update();
 
-		unsigned int x = thresholdFilter->GetOutput()->GetLargestPossibleRegion().GetSize()[0];
-		unsigned int y = thresholdFilter->GetOutput()->GetLargestPossibleRegion().GetSize()[1];
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
-				index[0] = i;
-				index[1] = j;
-				if(thresholdFilter->GetOutput()->GetPixel(index)) {
-					averageAbove += reader->GetOutput()->GetPixel(index);
-					quantityAbove++;
-				}
-				else {
-					averageBelow += reader->GetOutput()->GetPixel(index);
-					quantityBelow++;
-				}
+		ConstIteratorType threshold_it(thresholdFilter->GetOutput(), thresholdFilter->GetOutput()->GetLargestPossibleRegion());
+		ConstIteratorType reader_it(rescalerFilter->GetOutput(), rescalerFilter->GetOutput()->GetLargestPossibleRegion());
+		for(threshold_it.GoToBegin(), reader_it.GoToBegin(); !threshold_it.IsAtEnd(); ++threshold_it, ++reader_it) {
+			if(threshold_it.Get()) {
+				averageAbove += reader_it.Get();
+				quantityAbove++;
+			}
+			else {
+				averageBelow += reader_it.Get();
+				quantityBelow++;
 			}
 		}
 		averageAbove /= quantityAbove;
@@ -263,6 +288,7 @@ int main () {
 		thresholdValueOLD = thresholdValue;
 		thresholdValue = (averageAbove + averageBelow)/2;
 	}
+	invertBinaryValues(thresholdFilter->GetOutput());
 	
 	ConnectedFilterType::Pointer neighborhoodConnected = ConnectedFilterType::New();
  	neighborhoodConnected->SetInput( thresholdFilter->GetOutput() );
@@ -298,7 +324,7 @@ int main () {
 			neighborhoodConnected->AddSeed(index);
 		}
 	}
-	ImageType::SizeType radius;
+	ImageTypeInt::SizeType radius;
  	radius[0] = 0;
  	radius[1] = 0;
  	neighborhoodConnected->SetRadius(radius);
@@ -317,11 +343,11 @@ int main () {
 	holeFillingFilter->SetMajorityThreshold( 2 );
 	holeFillingFilter->SetMaximumNumberOfIterations( 40 );
 	
+	DilateFilterType::Pointer binaryDilateFilter = DilateFilterType::New();   
  	ErodeFilterType::Pointer binaryErodeFilter = ErodeFilterType::New();
- 	DilateFilterType::Pointer binaryDilateFilter = DilateFilterType::New();   
  	
  	StructuringElementType structuringElement;
- 	structuringElement.SetRadius( 2 ); 
+ 	structuringElement.SetRadius( 6 ); 
  	structuringElement.CreateStructuringElement();
  	binaryDilateFilter->SetKernel( structuringElement );
  	binaryErodeFilter->SetKernel( structuringElement );
@@ -331,27 +357,20 @@ int main () {
  	binaryDilateFilter->SetDilateValue( 1 );
  	binaryErodeFilter->SetErodeValue( 1 );
 	
-	HoleFillingType::Pointer inverseHoleFillingFilter = HoleFillingType::New();
-	radius[0] = 2;
- 	radius[1] = 2;
- 	inverseHoleFillingFilter->SetRadius(radius);
-	inverseHoleFillingFilter->SetInput(binaryErodeFilter->GetOutput());
-	inverseHoleFillingFilter->SetBackgroundValue( 0 );
-	inverseHoleFillingFilter->SetForegroundValue( 1 );
-	inverseHoleFillingFilter->SetMajorityThreshold( 2 );
-	inverseHoleFillingFilter->SetMaximumNumberOfIterations( 10 );
-	inverseHoleFillingFilter->Update();
-	
-	ImageType *image;
-	if (!isThereMoreThan2Islands(inverseHoleFillingFilter->GetOutput())) {
-		
-		image = inverseHoleFillingFilter->GetOutput();
+	ImageTypeInt *image;
+	binaryErodeFilter->Update();
+	image = binaryErodeFilter->GetOutput();
+	if (!isThereMoreThan2Islands(image)) {
 		unsigned int y = image->GetLargestPossibleRegion().GetSize()[1];
 		index[0] = smallerHeightPosition(image);
 		for (index[1] = 0; index[1] < y; index[1]++) {
 			if(image->GetPixel(index)) {
 				break;
 			} 
+		}
+		if (index[1] == y) {
+			cout << "Algoritmo de busca do ponto de separação falhou.\nABORTANDO...\n";
+			return 1;
 		}
 		while(image->GetPixel(index)) {
 			image->SetPixel(index, 0);
@@ -363,18 +382,18 @@ int main () {
 	unsigned int x = image->GetLargestPossibleRegion().GetSize()[0];
 	unsigned int y = image->GetLargestPossibleRegion().GetSize()[1];
 	
-	ImageType::Pointer leftLung = ImageType::New();
-	ImageType::Pointer rightLung = ImageType::New();
+	ImageTypeInt::Pointer leftLung = ImageTypeInt::New();
+	ImageTypeInt::Pointer rightLung = ImageTypeInt::New();
 	
-	ImageType::IndexType start;
+	ImageTypeInt::IndexType start;
 	start[0] =   0;
 	start[1] =   0;
 	
-	ImageType::SizeType  size;
+	ImageTypeInt::SizeType  size;
 	size[0]  = x;
 	size[1]  = y;
-
-	ImageType::RegionType region;
+	
+	ImageTypeInt::RegionType region;
 	region.SetSize( size );
 	region.SetIndex( start );
 
@@ -382,6 +401,17 @@ int main () {
 	leftLung->Allocate();
 	rightLung->SetRegions( region );
 	rightLung->Allocate();
+	
+	{
+		IteratorType left_it(leftLung, leftLung->GetLargestPossibleRegion());
+		for(left_it.GoToBegin(); !left_it.IsAtEnd(); ++left_it) {
+			left_it.Set(0);
+		}
+		IteratorType right_it(rightLung, rightLung->GetLargestPossibleRegion());
+		for(right_it.GoToBegin(); !right_it.IsAtEnd(); ++right_it) {
+			right_it.Set(0);
+		}
+	}
 	
 	ConnectedFilterType::Pointer neighborhoodConnectedSpliter = ConnectedFilterType::New();
 	MaskNegatedFilterType::Pointer maskNegatedFilterSpliter = MaskNegatedFilterType::New();
@@ -399,7 +429,7 @@ int main () {
 				index[0] = i;
 				index[1] = j;
 				neighborhoodConnectedSpliter->SetSeed(index);
-				ImageType::SizeType radius;
+				ImageTypeInt::SizeType radius;
 				radius[0] = 0;
 				radius[1] = 0;
 				neighborhoodConnectedSpliter->SetRadius(radius);
@@ -411,32 +441,20 @@ int main () {
 				
 				if(leftLimit + rightLimit > x) {
 					// Right side
-					ImageType::IndexType auxIndex;
-					int xAxis = neighborhoodConnectedSpliter->GetOutput()->GetLargestPossibleRegion().GetSize()[0];
-					int yAxis = neighborhoodConnectedSpliter->GetOutput()->GetLargestPossibleRegion().GetSize()[1];
-					int lalala = 0;
-					for(int l = 0; l < xAxis; l++) {
-						auxIndex[0] = l;
-						for(int c = 0; c < yAxis; c++) {
-							auxIndex[1] = c;
-							if(neighborhoodConnectedSpliter->GetOutput()->GetPixel(auxIndex)) {
-								rightLung->SetPixel(auxIndex, 1); // TODO: magic number
-							}
+					ConstIteratorType neightbor_it(neighborhoodConnectedSpliter->GetOutput(), neighborhoodConnectedSpliter->GetOutput()->GetLargestPossibleRegion());
+					IteratorType right_it(rightLung, rightLung->GetLargestPossibleRegion());
+					for(right_it.GoToBegin(), neightbor_it.GoToBegin(); !right_it.IsAtEnd(); ++right_it, ++neightbor_it) {
+						if(neightbor_it.Value()) {
+							right_it.Set(1);
 						}
 					}
 				} else {
 					// Left side
-					ImageType::IndexType auxIndex;
-					int xAxis = neighborhoodConnectedSpliter->GetOutput()->GetLargestPossibleRegion().GetSize()[0];
-					int yAxis = neighborhoodConnectedSpliter->GetOutput()->GetLargestPossibleRegion().GetSize()[1];
-					
-					for(int l = 0; l < xAxis; l++) {
-						auxIndex[0] = l;
-						for(int c = 0; c < yAxis; c++) {
-							auxIndex[1] = c;
-							if(neighborhoodConnectedSpliter->GetOutput()->GetPixel(auxIndex)) {
-								leftLung->SetPixel(auxIndex, 1); // TODO: magic number
-							}
+					ConstIteratorType neightbor_it(neighborhoodConnectedSpliter->GetOutput(), neighborhoodConnectedSpliter->GetOutput()->GetLargestPossibleRegion());
+					IteratorType left_it(leftLung, leftLung->GetLargestPossibleRegion());
+					for(left_it.GoToBegin(), neightbor_it.GoToBegin(); !left_it.IsAtEnd(); ++left_it, ++neightbor_it) {
+						if(neightbor_it.Value()) {
+							left_it.Set(1);
 						}
 					}
 				}
@@ -449,20 +467,20 @@ int main () {
 			}
 		}
 	}
-	
+
 	MaskFilterType::Pointer maskFilterLeft = MaskFilterType::New();
-	maskFilterLeft->SetInput1(reader->GetOutput());
+	maskFilterLeft->SetInput1(rescalerFilter->GetOutput());
 	maskFilterLeft->SetInput2(leftLung);
 	maskFilterLeft->Update();
 	
 	MaskFilterType::Pointer maskFilterRight = MaskFilterType::New();
-	maskFilterRight->SetInput1(reader->GetOutput());
+	maskFilterRight->SetInput1(rescalerFilter->GetOutput());
 	maskFilterRight->SetInput2(rightLung);
 	maskFilterRight->Update();
 	
 	ROIFilterType::Pointer roiFilterLeft = ROIFilterType::New();
 	ROIFilterType::Pointer roiFilterRight = ROIFilterType::New();
-	ImageType::RegionType roi;
+	ImageTypeInt::RegionType roi;
 	int left,top;
 	
 	left = limit(1, leftLung);
@@ -493,51 +511,12 @@ int main () {
 	roiFilterRight->SetInput(maskFilterRight->GetOutput());
 	roiFilterRight->Update();
 
-	ImageType::Pointer leftLungCutted = ImageType::New();
-	ImageType::Pointer rightLungCutted = ImageType::New();
-	
-	ImageType::RegionType regionLeft;
-	regionLeft.SetSize( roiFilterLeft->GetOutput()->GetLargestPossibleRegion().GetSize() );
-	regionLeft.SetIndex( start );
-	
-	ImageType::RegionType regionRight;
-	regionRight.SetSize( roiFilterRight->GetOutput()->GetLargestPossibleRegion().GetSize() );
-	regionRight.SetIndex( start );
-
-	leftLungCutted->SetRegions( regionLeft );
-	leftLungCutted->SetMetaDataDictionary(reader->GetOutput()->GetMetaDataDictionary());
-	leftLungCutted->Allocate();
-	rightLungCutted->SetRegions( regionRight );
-	rightLungCutted->SetMetaDataDictionary(reader->GetOutput()->GetMetaDataDictionary());
-	rightLungCutted->Allocate();
-	
-	ImageType::IndexType auxIndex;
-	int xAxis = leftLungCutted->GetLargestPossibleRegion().GetSize()[0];
-	int yAxis = leftLungCutted->GetLargestPossibleRegion().GetSize()[1];
-	for(int l = 0; l < xAxis; l++) {
-		auxIndex[0] = l;
-		for(int c = 0; c < yAxis; c++) {
-			auxIndex[1] = c;
-			leftLungCutted->SetPixel(auxIndex, roiFilterLeft->GetOutput()->GetPixel(auxIndex));
-		}
-	}
-	
-	xAxis = rightLungCutted->GetLargestPossibleRegion().GetSize()[0];
-	yAxis = rightLungCutted->GetLargestPossibleRegion().GetSize()[1];
-	for(int l = 0; l < xAxis; l++) {
-		auxIndex[0] = l;
-		for(int c = 0; c < yAxis; c++) {
-			auxIndex[1] = c;
-			rightLungCutted->SetPixel(auxIndex, roiFilterRight->GetOutput()->GetPixel(auxIndex));
-		}
-	}
-	
 	WriterType::Pointer writer = WriterType::New();
 	writer->SetFileName( "leftLung.dcm" );
-	writer->SetInput(leftLungCutted);
+	writer->SetInput(roiFilterLeft->GetOutput());
 	writer->Update();
 	writer->SetFileName( "rightLung.dcm" );
-	writer->SetInput(rightLungCutted);
+	writer->SetInput(roiFilterRight->GetOutput());
 	writer->Update();
 	
 	return 0;
