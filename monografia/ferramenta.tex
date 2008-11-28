@@ -1,6 +1,6 @@
 \chapter{Ferramenta desenvolvida}
 
-Neste trabalho foi desenvolvido um protótipo cujo objetivo é auxiliar na interpretação de exames de tomografia computadorizada pulmonares. O protótipo, através do processamento de imagens digitais e de técnicas de recuperação de imagens baseada em conteúdo, é capaz de oferecer suporte ao médico na realização do diagnóstico do paciente.
+Neste trabalho foi desenvolvido uma ferramenta cujo objetivo é auxiliar na interpretação de exames de tomografia computadorizada pulmonares. A ferramenta, através do processamento de imagens digitais e de técnicas de recuperação de imagens baseada em conteúdo, é capaz de oferecer suporte ao médico na realização do diagnóstico do paciente.
 
 Neste capítulo serão demonstrados aspectos da implementação e utilização do protótipo desenvolvido.
 
@@ -13,8 +13,6 @@ O sistema operacional de desenvolvimento foi o GNU/Linux da distribuição Debia
 \section{Imagens utilizadas}
 
 Nos diversos experimentos executados durante o desenvolvimento da ferramenta, foram utilizadas imagens médicas de tomografia computadorizada pulmonar cedidas pelo Hospital das Clínicas da Faculdade de Medicina de Ribeirão Preto da Universidade de São Paulo (HCFMRP – USP).
-
-% TODO: como foram obtidas, especificações da máquina
 
 \section{Linguagens de programação}
 
@@ -34,15 +32,15 @@ Todas as bibliotecas utilizadas no desenvolvimento da ferramenta são distribuí
 
 Insight Segmentation and Registration ToolKit (ITK) é uma biblioteca proposta pela Biblioteca Nacional de Medicina dos Estados Unidos da América, voltada para segmentação e registro de imagens \cite{yoo}.
 
-a biblioteca é composta por algoritmos e estruturas de representação de dados com duas finalidades principais: a identificação e classificação de elementos encontrados em uma imagem digital (segmentação) e a tarefa de alinhar imagens ou encontrar correspondências entre dados (registro).
+A biblioteca é composta por algoritmos e estruturas de representação de dados com duas finalidades principais: a identificação e classificação de elementos encontrados em uma imagem digital (segmentação) e a tarefa de alinhar imagens ou encontrar correspondências entre dados (registro).
 
-No ITK há um foco em aplicações médicas, embora não haja restrições quanto ao processamento de outros tipos de dados. Essa biblioteca não dá enfoque à parte de visualização deixando a cargo de outras ferramentas que possam ser utilizadas conjuntamente, como o VTK.
+No ITK há um foco em aplicações médicas, embora não haja restrições quanto ao processamento de outros tipos de dados. Essa biblioteca não dá enfoque à parte de visualização deixando a cargo de outras ferramentas que possam ser utilizadas conjuntamente.
 
 O ITK é mantido, basicamente, por seis instituições: Kitware, GE Corporate R\&D, Insightful, University Chapel Hill, University of Utah e University of Pennsylvania, sendo as três primeiras comerciais e as demais são instituições acadêmicas. Outros membros do projeto são Harvard Brigham \& Women's Hospital, University of Pittsburgh e Columbia University \cite{itk-page}.
 
 Quanto à linguagem, ITK também é escrito em C++, mas possui interface para utilização a partir de outras linguagens. É um conjunto de ferramentas que provê uma grande quantidade de algoritmos pré-codificados e testados para fazer registro e segmentação de imagens, bem como rotinas para leitura e decodificação de diversos padrões de arquivos.
 
-O ITK é também distribuído livremente, com código-fonte aberto e uma licença bem semelhante à do VTK, impondo poucas restrições ao seu uso, modificação e distribuição.
+O ITK é distribuído livremente e com código-fonte aberto, impondo poucas restrições ao seu uso, modificação e distribuição.
 
 \subsection{FANN}
 
