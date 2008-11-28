@@ -18,7 +18,7 @@ Num sistema CBIR típico, o conteúdo visual relevante das imagens no banco de i
 
 \section{Similaridade}
 
-No dia-a-dia precisamos categorizar diversas coisas no mundo real e da informação, para que, pela comparação com conceitos e situações já existentes, possamos aprender outros. Portanto a capacidade de analisar a similaridade das coisas é importantíssima. Para sistema de CBIR, é necessário que a medida de similaridade chegue o mais perto possível da percepção do usuário, pois ela irá afetar a eficiência das buscas significativamente.
+No dia-a-dia precisamos categorizar diversas coisas no mundo real e da informação, para que, pela comparação com conceitos e situações já existentes, possamos aprender outros. Portanto a capacidade de analisar a similaridade das coisas é importantíssima. Para um sistema de CBIR, é necessário que a medida de similaridade chegue o mais perto possível da percepção do usuário, pois ela irá afetar a eficiência das buscas significativamente.
 
 Várias medidas de similaridade foram desenvolvidas para recuperação de imagens nos últimos anos, a maioria baseada em estimativas empíricas da distribuição de características \cite{feng-chapter}. Entretanto essas medidas são estáticas, após escolhidas durante o desenvolvimento do sistema, não são mais alteradas. Dessa forma a utilidade desses sistemas é limitada devido a falta de capacidade de se representar conceitos de alto nível nas imagens utilizando características de baixo nível.
 
@@ -42,7 +42,7 @@ Para construir uma RNA, primeiro decide-se quantos nodos ela possuirá, de que t
 
 Para computar o seu nível de ativação um nodo utiliza duas funções, as quais são chamadas de função de entrada e função de ativação. A função de entrada é linear e usada para computar a soma ponderada dos valores de entrada do nodo. Já a função de ativação é não linear e utilizada para transformar a soma ponderada no valor final que será o valor de ativação desse nodo.
 
-Sendo $w_{i,j}$ o peso da aresta que sai do nodo $i$ até o nodo $j$ e $a_i$ o nível de ativação do nodo $i$, a função de entrada para $j$ é calculada como em \ref{equa:f:entrada}.
+Sendo $w_{i,j}$ o peso da aresta que sai do nodo $i$ até o nodo $j$ e $a_i$ o nível de ativação do nodo $i$, a função de entrada para $j$ é calculada como na equação \ref{equa:f:entrada}.
 
 \begin{equation}
 	\sum_{i} w_{i,j} \cdot a_i
@@ -66,7 +66,7 @@ Existe uma variedade de tipos de estruturas de RNAs, e cada uma resulta em propr
 
 \subsection{Perceptron de múltiplas camadas pró-alimentado}
 
-Um RNA para ser considerada um perceptron de múltiplas camadas deve ter além dos nodos de entrada e saída, nodos intermediários, os quais interagem apenas com outro nodos \cite{sandhya}. Podemos ver um perceptron de múltiplas camadas pró-alimentado na figura \ref{fig:rna}.
+Um RNA para ser considerada um perceptron de múltiplas camadas deve ter além dos nodos de entrada e saída, nodos intermediários, os quais interagem apenas com outro nodos \cite{sandhya}. Podemos ver um perceptron de múltiplas camadas pró-alimentado na fig.~\ref{fig:rna}.
 
 \begin{figure}[ht]
  \begin{center}
@@ -91,16 +91,16 @@ Desta forma, se a RNA calcular um valor correto, os pesos não são alterados. M
 
 onde $t_j$ é a saída do nodo $j$ e $o_j$ a saída esperada do nodo $j$.
 
-Sendo $a$ uma constante chamada de taxa de aprendizado, $e_j$ o resultado da função de entrada e $g'()$ é a derivada da função de ativação. Será conveniente definir $\Delta_j = (t_j - o_j) \cdot g'(e_j)$. A regra de atualização de pesos pode ser escrito como
+Sendo $a$ uma constante chamada de taxa de aprendizado, $e_j$ o resultado da função de entrada e $g'()$ é a derivada da função de ativação. Será conveniente definir $\Delta_j = (t_j - o_j) \cdot g'(e_j)$. Então a regra de atualização de pesos pode ser escrita como
 
 \begin{equation}
 	w_{i,j} = w_{i,j} + a \cdot a_i \cdot \Delta_j
 \end{equation}
 
-Para a atualização dos pesos dos nodos de entrada e intermediários nós precisamos definir uma quantidade análoga ao $\Delta_j$ dos nodos de saída. Este ponto é onde a retro-propagação do erro ocorre. Cada nodo $i$ é "responsável" por uma fração do erro $\Delta_j$ em cada um dos nodos de saída em que ele se conecta. Então o valor de $\Delta_j$ é dividido de acordo com a influência da conexão entre o nodo intermediário e o nodo de saída e propagado de volta para que os valores de $\Delta_i$ sejam calculados. A regra de propagação é a seguinte
+Para a atualização dos pesos dos nodos de entrada e intermediários nós precisamos definir uma quantidade análoga ao $\Delta_j$ dos nodos de saída. Este ponto é onde a retro-propagação do erro ocorre. Cada nodo $i$ é "responsável"~por uma fração do erro $\Delta_j$ em cada um dos nodos de saída em que ele se conecta. Então o valor de $\Delta_j$ é dividido de acordo com a influência da conexão entre o nodo intermediário e o nodo de saída e propagado de volta para que os valores de $\Delta_i$ sejam calculados. A regra de propagação é a seguinte
 
 \begin{equation}
-	\Delta_i = g'(e_i) \cdot \sum_j w_{i,j} \cdot \Delta_j
+	\Delta_i = g'(e_i) \cdot \sum_j \left(w_{i,j} \cdot \Delta_j\right)
 \end{equation}
 
 Agora a equação de atualização dos pesos dos nodos de entrada e intermediários é igual a dos nodos de saída, devemos apenas tomar cuidado no cálculo dos $\Delta$, que são diferentes.

@@ -22,7 +22,7 @@ As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quai
  \label{fig:tc1}
 \end{figure}
 
-A forma de movimentação depende da tecnologia da máquina utilizada. Nas máquinas mais antigas, eram tiradas várias projeções de uma fatia do paciente, apenas circulando em torno dele, e então depois a "cama" onde o paciente deita-se se move, para outra rodada de projeções, como na fig.~\ref{fig:tc2}. Hoje em dia, temos as máquinas helicoidais, os quais descrevem uma hélice em torno do paciente, em vez de uma sucessão de círculos completo. Desta forma é obtida informação de uma forma contínua.
+A forma de movimentação depende da tecnologia da máquina utilizada. Nas máquinas mais antigas, eram tiradas várias projeções de uma fatia do paciente, apenas circulando em torno dele, e então depois a "cama"~onde o paciente deita-se se move, para outra rodada de projeções, como na fig.~\ref{fig:tc2}. Hoje em dia, temos as máquinas helicoidais, os quais descrevem uma hélice em torno do paciente, em vez de uma sucessão de círculos completo. Desta forma é obtida informação de uma forma contínua.
 
 \begin{figure}[ht]
  \begin{center}
@@ -73,7 +73,7 @@ onde $\mu_{H_2O}$ e $\mu_{ar}$ são os coeficientes de atenuação linear da ág
 
 \subsection{Técnica de Janelas}
 
-O olho humano tem a capacidade de diferenciar uma escala de cinzas de 10 a 60 tons (a maioria das pessoas distingue 20 diferentes tons), enquanto na tomografia há no mínimo 2000 tons. A técnica de janelas é na verdade uma forma de mostrar apenas uma faixa de tons de cinza que nos interessa, de forma a adaptar a nossa capacidade de visão aos dados obtidos pelo tomógrafo \cite{tomo}.
+O olho humano tem a capacidade de diferenciar uma escala de cinzas de 10 a 60 tons (a maioria das pessoas distingue 20 tons diferentes), enquanto na tomografia há no mínimo 2000 tons. A técnica de janelas é na verdade uma forma de mostrar apenas uma faixa de tons de cinza que nos interessa, de forma a adaptar a nossa capacidade de visão aos dados obtidos pelo tomógrafo \cite{tomo}.
 
 Precisamos definir os valores máximo e mínimo da janela, para mapear os valores em UH em níveis de cinza. Todos os valores abaixo do valor mínimo serão mapeados como preto e todos acima do máximo como branco. Para definir estes valores, especificamos o tamanho da janela em UH e o centro dela, como podemos ver na fig.~\ref{fig:tc_janela}.
 
@@ -134,7 +134,7 @@ Threshold é um dos métodos mais simples de segmentação de imagens. A partir 
 
 Durante o processo de threshold, os pixels são divididos em dois grupos, na forma mais simples de threshold, a divisão é feita dependendo apenas se o valor do pixel é maior ou menor que o valor de threshold. Então um grupo é colorido de preto e o outro de branco, tornando a imagem binária. A divisão dos grupos de pixels pode ser feita com base em mais de um valor de threshold, dessa forma os pixels são divididos entre os que estão dentro de um intervalo formado por 2 valores de threshold e os que não estão.
 
-O parâmetro chave que determina a eficiência de um threshold é o valor de threshold usado. Diversos métodos existem para a escolha do valor de threshold, ele pode ser escolhido manualmente, ou por algum algoritmo que o compute, dependendo da imagem, esse tipo de threshold mais conhecido como threshold automático. Um método simples é escolher o valor da media ou da mediana. Geralmente esse algoritmo só irá atingir bons resultados se a imagem de entrada possuir pouco ruído e for uniforme. Uma abordagem um pouco mais sofisticada seria gerar o histograma da intensidade dos pixels da imagem e escolher como threshold o valor de vale.
+O parâmetro chave que determina a eficiência de um threshold é o valor de threshold usado. Diversos métodos existem para a escolha do valor de threshold, ele pode ser escolhido manualmente, ou por algum algoritmo que o compute, dependendo da imagem, esse tipo de threshold mais conhecido como threshold automático. Um método simples é escolher o valor da média ou da mediana. Geralmente esse algoritmo só irá atingir bons resultados se a imagem de entrada possuir pouco ruído e for uniforme. Uma abordagem um pouco mais sofisticada seria gerar o histograma da intensidade dos pixels da imagem e escolher como threshold o valor de vale.
 
 A técnica de threshold adaptativo, que pode ser vista na fig.~\ref{fig:threshold}, consiste em escolher um valor inicial arbitrário de threshold ($T^0$), realizar o threshold e calcular o valor médio dos pixels acima ($\mu_{acima}$) e abaixo ($\mu_{abaixo}$) do valor de threshold. Então obter um novo threshold ($T^{i+1}$), de acordo com a equação~ \ref{equa:thresholdAdaptativo}. Com o novo threshold o processo se inicia novamente, e só para quando atingir a convergência, ou seja, o novo valor for igual ao antigo valor ($T^i = T^{i+1}$). Este algoritmo garante a convergência até um mínimo local.
 
@@ -158,7 +158,7 @@ Morfologia é o estudo da forma. Em processamento de imagens, morfologia matemá
 
 A linguagem utilizada na morfologia matemática é a teoria dos conjuntos. Conjuntos na morfologia matemática representam objetos numa imagem. Por exemplo, o conjunto de todos os pixels pretos numa imagem binária é uma descrição morfológica completa da imagem. Em imagens binárias, os conjuntos em questão são membros do espaço dos inteiros bidimensional - 2D - $Z^2$, onde cada elemento do conjunto é uma tupla cujas coordenadas são as coordenadas de um pixel preto na imagem. Imagens em tons de cinza podem ser representadas como conjuntos cujos componentes estão em $Z^3$. Neste caso, dois componentes de cada elemento do conjunto se referem as coordenadas do pixel, e o terceiro corresponde ao valor do seu nível de cinza. Conjuntos em espaços dimensionais ainda mais elevados podem conter outros atributos da imagem, como cor ou componentes que variam com o tempo \cite{gonzalez}.
 
-Então temos a morfologia binária que se aplica sobre imagens binárias e a morfologia cinza que se aplica a imagens em níveis de cinza. Uma operação morfológica binária é completamente determinada a partir da vizinhança examinada ao redor do ponto central e do algoritmo utilizado, Já na morfologia cinza, na vizinhança de cada pixel, ou numa parte da vizinhança, é necessário conhecer o valor do pixel mais escuro, e o valor do mais claro. O valor do pixel resultando corresponde a uma combinação particular desses dois. Portanto o tamanho e a forma da vizinhança, as regiões de pesquisa dos valores máximo e mínimo e o algoritmo utilizado, determinam uma operação de morfologia cinza \cite{facon}.
+Então temos a morfologia binária que se aplica sobre imagens binárias e a morfologia cinza que se aplica a imagens em níveis de cinza. Uma operação morfológica binária é completamente determinada a partir da vizinhança examinada ao redor do ponto central e do algoritmo utilizado. Já na morfologia cinza, na vizinhança de cada pixel, ou numa parte da vizinhança, é necessário conhecer o valor do pixel mais escuro, e o valor do mais claro. O valor do pixel resultante corresponde a uma combinação particular desses dois. Portanto o tamanho e a forma da vizinhança, as regiões de pesquisa dos valores máximo e mínimo e o algoritmo utilizado, determinam uma operação de morfologia cinza \cite{facon}.
 
 As operações fundamentais da morfologia matemática são a erosão e a dilatação. Essas operações necessitam do que chamamos de elementos estruturantes. Estes elementos, determinam quais pixels da imagem são retirados (no caso de uma erosão) ou quais são adicionados (no caso de uma dilatação) aos objetos. Elementos estruturantes são simplesmente imagens binárias em que um dos pontos é definido como centro. Como exemplos largamente utilizados podemos citar: um quadrado de 3x3 pixels (fig.~\ref{fig:ee_quadrado}), uma cruz definida pelo pontos {(-1,0),(0,-1),(0,0),(0,1),(1,0)} (fig.~\ref{fig:ee_cruz}) e um círculo de raio qualquer (fig.~\ref{fig:ee_circulo}).
 
@@ -176,7 +176,7 @@ As operações fundamentais da morfologia matemática são a erosão e a dilata�
 
 \subsection{Erosão e Dilatação}
 
-Na erosão, o elemento estruturante é sobreposto à imagem em todas as posições possíveis. O pixel que fica na posição da origem do elemento estruturante é modificado da seguinte forma: se o elemento estiver em parte sobre o objeto e em parte sobre o fundo, o pixel que está na posição da origem passa a ser fundo. Ou seja, um pixel só pode permanecer no objeto se, quando a origem do elemento estruturante estiver sobre ele, todo o elemento estiver sobre o objeto, como podemos ver na fig.~\ref{fig:erosao}.
+Na erosão, o elemento estruturante é sobreposto à imagem em todas as posições possíveis. O pixel que fica na posição da origem do elemento estruturante é modificado da seguinte forma: se o elemento estiver em parte sobre o objeto e em parte sobre o fundo, o pixel que está na posição da origem passa a ser fundo. Ou seja, um pixel só pode permanecer no objeto se quando a origem do elemento estruturante estiver sobre ele, todo o elemento estiver sobre o objeto, como podemos ver na fig.~\ref{fig:erosao}.
 \\ \\
 Efeitos da erosão:
 
@@ -252,15 +252,15 @@ Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a dis
  }
 \end{equation}
 
-Para poder ser utilizada, a matriz de co-ocorrência precisa ser normalizada, que poder ser obtida dividindo cada elemento da matriz pelo número total de pares de pixel.
+Para poder ser utilizada, a matriz de co-ocorrência precisa ser normalizada, para isso dividimos cada elemento da matriz pelo número total de pares de pixels.
 
 Percebemos que o deslocamento ($\Delta{}x,\Delta{}y$) faz com que a matriz de co-ocorrência seja sensível a rotação. Dessa forma, uma rotação da imagem diferente de 180 graus irá resultar numa matriz de co-ocorrência diferente para uma mesma imagem (rotacionada). Isso é raramente desejado nas aplicações em que a matriz de co-ocorrência é utilizada, portanto a matriz de co-ocorrência é geralmente utilizada a partir da média em cada valor da matriz para um conjunto de deslocamentos que variam até 180 graus com uma mesma distância entre eles (por exemplo 0, 45, 90 e 135 graus) para não ser influenciada pela rotação.
 
 \subsection{Características de Haralick}
 
-\citealt{Haralick} sugeriu um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser utilizadas para classificar imagens de textura. Abaixo estão descritas algumas delas.
+Em \citealt{Haralick} foi sugerido um total de 14 características que podem ser computadas diretamente da matriz de co-ocorrência, as quais podem ser utilizadas para classificar imagens de textura. Abaixo estão descritas algumas delas.
 
-Considere N como sendo o número de níveis de cinza da matriz de co-ocorrência e.
+Considere N como sendo o número de níveis de cinza da matriz de co-ocorrência $C$.
 
 A Energia, também conhecida como segundo momento angular, avalia a uniformidade textural em uma imagem. A fórmula que descreve a energia pode ser vista na equação~\ref{equa:hara-energia}.
 
