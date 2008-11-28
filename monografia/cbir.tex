@@ -1,6 +1,6 @@
 \chapter{Recuperação de imagens baseada em conteúdo}
 
-Os primeiros trabalhos sobre recuperação de imagens são datados do final da década de 1970. Em 1979, uma conferência sobre \textit{Database Techniques for Pictorial Applications} (numa tradução livre "Técnicas de banco de dados para aplicações com imagens") foi realizada em Florência, Itália. Desde então, o potencial de técnicas de gerenciamento de banco de dados de imagens atraíu a atenção dos pesquisadores.
+Os primeiros trabalhos sobre recuperação de imagens são datados do final da década de 1970. Em 1979, uma conferência sobre \textit{Database Techniques for Pictorial Applications} (numa tradução livre "Técnicas de banco de dados para aplicações com imagens") foi realizada em Florência, Itália. Desde então, o potencial de técnicas de gerenciamento de banco de dados de imagens atraiu a atenção dos pesquisadores.
 
 As primeiras técnicas não foram baseadas em características visuais e sim em anotações textuais das imagens. Em outras palavras, as imagens eram primeiro descritas textualmente, para então serem recuperadas usando busca baseada em texto dos sistemas de gerenciamente de banco de dados tradicionais. Através das descrições textuais, as imagens podem ser organizadas por tópicos ou classes hierárquicas para facilitar a busca através de requisições usando expressões lógicas. Entretanto, como a geração automática de descrições para imagens diversas é uma tarefa quase impossível, a maioria dos sistemas de recuperação baseados em imagem requer que as descrições sejam feitas manualmente. Obviamente, fazer anotações manualmente sobre uma imagem é uma tarefa difícil e onerosa para grandes bancos de dados de imagens, além de ser geralmente subjetiva, sensível ao contexto e incompleta \cite{feng-chapter}.
 
@@ -28,7 +28,7 @@ Para contornar esse problema, pesquisadores \cite{mammography} \cite{cbir-nn-gen
 
 Uma RNA é composta de nodos conectados por arestas direcionadas. Cada aresta tem um peso associado. São esses pesos os responsáveis pelo armazenamento em RNAs, e o aprendizado geralmente acontece com a modificação desses pesos. A modificação de pesos tenta fazer com que o comportamento dos nodos de saída a partir dos nodos de entrada estejam mais próximos do valor esperado.
 
-Cade unidade tem um conjunto de aresta advindas de outros nodos e um conjunto partindo para outros nodos, um nível de ativação e um meio de calcular o nível de ativação, dados as suas entradas e pesos (fig.~\ref{fig:rnaSimples}). A idéia é que cada nodo faça um cálculo local baseado das entradas advindas dos nodos vizinhos, mas sem necessidade de qualquer controle global sobre o conjunto de nodos \cite{russel:modern}.
+Cada unidade tem um conjunto de aresta advindas de outros nodos e um conjunto partindo para outros nodos, um nível de ativação e um meio de calcular o nível de ativação, dados as suas entradas e pesos (fig.~\ref{fig:rnaSimples}). A idéia é que cada nodo faça um cálculo local baseado das entradas advindas dos nodos vizinhos, mas sem necessidade de qualquer controle global sobre o conjunto de nodos \cite{russel:modern}.
 
 \begin{figure}[ht]
  \begin{center}
@@ -38,7 +38,7 @@ Cade unidade tem um conjunto de aresta advindas de outros nodos e um conjunto pa
  \label{fig:rnaSimples}
 \end{figure}
 
-Para construir uma RNA, primeiro decide-se quantos nodos ela possuirá, de que tipo serão e como serão conectados. Então os pesos são inicializados, e então treinados utilizando um algoritmo de aprendizado a partir de um conjunto de exemplo da tarefa a ser realizada. O uso de exemplo também implica que deve ser decidido como representar os examplos em termos de entrada e saída da RNA.
+Para construir uma RNA, primeiro decide-se quantos nodos ela possuirá, de que tipo serão e como serão conectados. Então os pesos são inicializados, e então treinados utilizando um algoritmo de aprendizado a partir de um conjunto de exemplo da tarefa a ser realizada. O uso de exemplo também implica que deve ser decidido como representar os exemplos em termos de entrada e saída da RNA.
 
 Para computar o seu nível de ativação um nodo utiliza duas funções, as quais são chamadas de função de entrada e função de ativação. A função de entrada é linear e usada para computar a soma ponderada dos valores de entrada do nodo. Já a função de ativação é não linear e utilizada para transformar a soma ponderada no valor final que será o valor de ativação desse nodo.
 
@@ -107,7 +107,7 @@ Agora a equação de atualização dos pesos dos nodos de entrada e intermediár
 
 \section{Eficiência de um sistema de CBIR}
 
-As medidas mais usadas para avaliar a qualidado dos resultados de um sistema de CBIR são a precisão e o \textit{recall}, os quais são calculados pelas equações \ref{equa:precisao} e \ref{equa:recall}, respectivamente.
+As medidas mais usadas para avaliar a qualidade dos resultados de um sistema de CBIR são a precisão e o \textit{recall}, os quais são calculados pelas equações \ref{equa:precisao} e \ref{equa:recall}, respectivamente.
 
 \begin{equation}
 	\textit{precisão} = \frac{\textit{número de imagens relevantes recuperadas}}{\textit{número de imagens recuperadas}}

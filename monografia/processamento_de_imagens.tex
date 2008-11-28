@@ -12,7 +12,7 @@ A tomografia era um dos mais importantes métodos de diagnóstico radiológico a
 
 A utilização de imagens no campo da medicina tem como principal objetivo proporcionar uma avaliação não invasiva dos tecidos e órgãos do corpo humano, tornando possível a verificação de anormalidades causadas por doenças ou acidentes \cite{oliveira}.
 
-As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de TC a fonte e os detectores de raios x são movidos para posições pre-determinadas e então obtem diversas imagens, como demonstrado na fig.~\ref{fig:tc1}, as quais representam fatias finas do paciente.
+As máquinas de TC possuem uma fonte de raios x e detectores de raios x, os quais ficam em lados opostos um do outro. Para construir as imagens de TC a fonte e os detectores de raios x são movidos para posições pré-determinadas e então obtêm diversas imagens, como demonstrado na fig.~\ref{fig:tc1}, as quais representam fatias finas do paciente.
 
 \begin{figure}[ht]
  \begin{center}
@@ -38,7 +38,7 @@ O campo de visão de uma imagem de TC representa o tamanho máximo do objeto em 
 
 \subsection{Coeficiente de Hounsfield}
 
-A escala da unidade hounsfield - UH - é uma transformação linear da medida do coeficiente de atenuação linear original, do qual a radiodensidade da água destilada a temperatura e pressão ambientes é definida como 0 UH, enquanto a radiodensidade do ar a temperatura e pressão ambientes é -1000 UH. Para um material X com coeficiente de atenuação $\mu$X, o correspondente valor em unidades Hounsfiled é dado por:
+A escala da unidade hounsfield - UH - é uma transformação linear da medida do coeficiente de atenuação linear original, do qual a radiodensidade da água destilada a temperatura e pressão ambientes é definida como 0 UH, enquanto a radiodensidade do ar a temperatura e pressão ambientes é -1000 UH. Para um material X com coeficiente de atenuação $\mu$X, o correspondente valor em unidades Hounsfield é dado por:
 
 \begin{equation}
 	\frac{\mu_X-\mu_{H_2O}}{\mu_{H_2O}-\mu_{ar}}\times 1000
@@ -85,7 +85,7 @@ Precisamos definir os valores máximo e mínimo da janela, para mapear os valore
  \label{fig:tc_janela}
 \end{figure}
 
-O uso de diferentes janelas em tomografia permite por exemplo o estudo dos ossos com distinção entre a cortical e a medular óssea ou o estudo de partes moles com a distinção, por exemplo, no cérebro entre a substância branca e a cinzenta. A mesma imagem pode ser mostrada com diferentes ajustes da janela, de modo a mostrar diferentes estruturas de cada vez. Não é possível usar um só ajuste da janela para ver, por exemplo, detalhes ósseos e de tecido adiposo ao mesmo tempo. Alguns valores comuns de janela estão na tab.~\ref{tab:janela}.
+O uso de diferentes janelas em tomografia permite por exemplo o estudo dos ossos com distinção entre a cortical e a medula óssea ou o estudo de partes moles com a distinção, por exemplo, no cérebro entre a substância branca e a cinzenta. A mesma imagem pode ser mostrada com diferentes ajustes da janela, de modo a mostrar diferentes estruturas de cada vez. Não é possível usar um só ajuste da janela para ver, por exemplo, detalhes ósseos e de tecido adiposo ao mesmo tempo. Alguns valores comuns de janela estão na tab.~\ref{tab:janela}.
 
 \begin{table}
  \caption{Valores comuns de janela.}
@@ -132,11 +132,11 @@ Mas o processo de segmentação é enormemente facilitado quando o domínio das 
 
 Threshold é um dos métodos mais simples de segmentação de imagens. A partir de uma imagem em tons de cinza, o threshold pode ser usado para torná-la binária.
 
-Durante o processo de threshold, os pixels são dividos em dois grupos, na forma mais simples de threshold, a divisão é feita dependendo apenas se o valor do pixel é maior ou menor que o valor de threshold. Então um grupo é colorido de preto e o outro de branco, tornando a imagem binária. A divisão dos grupos de pixels pode ser feita com base em mais de um valor de threshold, dessa forma os pixels são divididos entre os que estão dentro de um intervalo formado por 2 valores de threshold e os que não estão.
+Durante o processo de threshold, os pixels são divididos em dois grupos, na forma mais simples de threshold, a divisão é feita dependendo apenas se o valor do pixel é maior ou menor que o valor de threshold. Então um grupo é colorido de preto e o outro de branco, tornando a imagem binária. A divisão dos grupos de pixels pode ser feita com base em mais de um valor de threshold, dessa forma os pixels são divididos entre os que estão dentro de um intervalo formado por 2 valores de threshold e os que não estão.
 
-O parâmetro chave que determina a eficiência de um threshold é o valor de threshold usado. Diversos métodos existem para a escolha do valor de threshold, ele pode ser escolhido manualmente, ou por algum algoritmo que o compute, dependendo da imagem, esse tipo de threshold mais conhecido como thresolhd automático. Um método simples é escolher o valor da media ou da mediana. Geralmente esse algoritmo só irá atingir bons resultados se a imagem de entrada possuir pouco ruído e for uniforme. Uma abordagem um pouco mais sofisticada seria gerar o histograma da intensidade dos pixels da imagem e escolher como threshold o valor de vale.
+O parâmetro chave que determina a eficiência de um threshold é o valor de threshold usado. Diversos métodos existem para a escolha do valor de threshold, ele pode ser escolhido manualmente, ou por algum algoritmo que o compute, dependendo da imagem, esse tipo de threshold mais conhecido como threshold automático. Um método simples é escolher o valor da media ou da mediana. Geralmente esse algoritmo só irá atingir bons resultados se a imagem de entrada possuir pouco ruído e for uniforme. Uma abordagem um pouco mais sofisticada seria gerar o histograma da intensidade dos pixels da imagem e escolher como threshold o valor de vale.
 
-A técnica de threshold adaptivo, que pode ser vista na fig.~\ref{fig:threshold}, consiste em escolher um valor inicial arbitrário de threshold ($T^0$), realizar o threshold e calcular o valor médio dos pixels acima ($\mu_{acima}$) e abaixo ($\mu_{abaixo}$) do valor de threshold. Então obter um novo threshold ($T^{i+1}$), de acordo com a equação~ \ref{equa:thresholdAdaptativo}. Com o novo threshold o processo se inicia novamente, e só para quando atingir a convergência, ou seja, o novo valor for igual ao antigo valor ($T^i = T^{i+1}$). Este algoritmo garante a convergência até um mínimo local.
+A técnica de threshold adaptativo, que pode ser vista na fig.~\ref{fig:threshold}, consiste em escolher um valor inicial arbitrário de threshold ($T^0$), realizar o threshold e calcular o valor médio dos pixels acima ($\mu_{acima}$) e abaixo ($\mu_{abaixo}$) do valor de threshold. Então obter um novo threshold ($T^{i+1}$), de acordo com a equação~ \ref{equa:thresholdAdaptativo}. Com o novo threshold o processo se inicia novamente, e só para quando atingir a convergência, ou seja, o novo valor for igual ao antigo valor ($T^i = T^{i+1}$). Este algoritmo garante a convergência até um mínimo local.
 
 \begin{equation}
  T^{i+1} = \frac{\mu_{acima}+\mu_{abaixo}}{2}
@@ -156,9 +156,9 @@ A técnica de threshold adaptivo, que pode ser vista na fig.~\ref{fig:threshold}
 
 Morfologia é o estudo da forma. Em processamento de imagens, morfologia matemática é o nome que se dá a um conjunto de métodos, inicialmente desenvolvidos por Georges Matheron e Jean Serra  em 1964, que têm em comum o objetivo de estudar a estrutura geométrica de uma imagem.
 
-A linguagem utilizada na morfologia matemática é a teoria dos conjuntos. Conjuntos na morfologia matemática representam objetos numa imagem. Por exemplo, o conjunto de todos os pixels pretos numa imagem binária é uma descrição morfologica completa da image. Em imagens binárias, os conjuntos em questão são membros do espaço dos inteiros bidimensional - 2D - $Z^2$, onde cada elemento do conjunto é uma tupla cujas coordenadas são as coordenadas de um pixel preto na image. Imagens em tons de cinza podem ser representadas como conjuntos cujos componentes estão em $Z^3$. Neste caso, dois componentes de cada elemento do conjunto se referem as coordenadas do pixel, e o terceiro corresponde ao valor do seu nível de cinza. Conjuntos em espaços dimensionais ainda mais elevados podem conter outros atributos da imagem, como cor ou componentes que variam com o tempo \cite{gonzalez}.
+A linguagem utilizada na morfologia matemática é a teoria dos conjuntos. Conjuntos na morfologia matemática representam objetos numa imagem. Por exemplo, o conjunto de todos os pixels pretos numa imagem binária é uma descrição morfológica completa da imagem. Em imagens binárias, os conjuntos em questão são membros do espaço dos inteiros bidimensional - 2D - $Z^2$, onde cada elemento do conjunto é uma tupla cujas coordenadas são as coordenadas de um pixel preto na imagem. Imagens em tons de cinza podem ser representadas como conjuntos cujos componentes estão em $Z^3$. Neste caso, dois componentes de cada elemento do conjunto se referem as coordenadas do pixel, e o terceiro corresponde ao valor do seu nível de cinza. Conjuntos em espaços dimensionais ainda mais elevados podem conter outros atributos da imagem, como cor ou componentes que variam com o tempo \cite{gonzalez}.
 
-Então temos a morfologia binária que se aplica sobre imagens binárias e a morfologia cinza que se aplica a imagens em níveis de cinza. Uma operação morfológica binária é completamente determinada a partir da vizinhaça examinada ao redor do ponto central e do algoritmo utilizado, Já na morfologia cinza, na vizinhança de cada pixel, ou numa parte da vizinhança, é necessário conhecer o valor do pixel mais escuro, e o valor do mais claro. O valor do pixel resultando corresponde a uma combinação particular desses dois. Portanto o tamanho e a forma da vizinhança, as regiões de pesquisa dos valores máximo e minímo e o algoritmo utilizado, determinam uma operação de morfologia cinza \cite{facon}.
+Então temos a morfologia binária que se aplica sobre imagens binárias e a morfologia cinza que se aplica a imagens em níveis de cinza. Uma operação morfológica binária é completamente determinada a partir da vizinhança examinada ao redor do ponto central e do algoritmo utilizado, Já na morfologia cinza, na vizinhança de cada pixel, ou numa parte da vizinhança, é necessário conhecer o valor do pixel mais escuro, e o valor do mais claro. O valor do pixel resultando corresponde a uma combinação particular desses dois. Portanto o tamanho e a forma da vizinhança, as regiões de pesquisa dos valores máximo e mínimo e o algoritmo utilizado, determinam uma operação de morfologia cinza \cite{facon}.
 
 As operações fundamentais da morfologia matemática são a erosão e a dilatação. Essas operações necessitam do que chamamos de elementos estruturantes. Estes elementos, determinam quais pixels da imagem são retirados (no caso de uma erosão) ou quais são adicionados (no caso de uma dilatação) aos objetos. Elementos estruturantes são simplesmente imagens binárias em que um dos pontos é definido como centro. Como exemplos largamente utilizados podemos citar: um quadrado de 3x3 pixels (fig.~\ref{fig:ee_quadrado}), uma cruz definida pelo pontos {(-1,0),(0,-1),(0,0),(0,1),(1,0)} (fig.~\ref{fig:ee_cruz}) e um círculo de raio qualquer (fig.~\ref{fig:ee_circulo}).
 
@@ -242,7 +242,7 @@ Uma primitiva é um conjunto conectado de pixels, caracterizado por um conjunto 
 
 Matriz de co-ocorrência é um dos métodos de processamento de imagens utilizado para caracterizar texturas. Ele descreve uma imagem, ou uma região de interesse na imagem, em termos da relação entre os valores dos pixels com os valores dos pixels vizinhos.
 
-Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a distribuição dos valores co-ocorrentes num dado deslocamento. Matematicamente, a matrix de co-ocorrência $C$ é definida a partir de uma imagem $I$ de $N x M$, parametrizada com um deslocamento de ($\Delta{}x,\Delta{}y$), como podemos ver abaixo:
+Uma matriz de co-ocorrência é definida a partir de uma imagem como sendo a distribuição dos valores co-ocorrentes num dado deslocamento. Matematicamente, a matriz de co-ocorrência $C$ é definida a partir de uma imagem $I$ de $N x M$, parametrizada com um deslocamento de ($\Delta{}x,\Delta{}y$), como podemos ver abaixo:
 
 \begin{equation}
  C(i,j)=\sum_{p=1}^n\sum_{q=1}^m
