@@ -12,7 +12,7 @@ O sistema operacional de desenvolvimento foi o GNU/Linux da distribuição Debia
 
 \section{Imagens utilizadas}
 
-Nos diversos experimentos executados durante o desenvolvimento da ferramenta, foram utilizadas imagens médicas de tomografia computadorizada pulmonar cedidas pelo Hospital das Clínicas da Faculdade de Medicina de Ribeirão Preto da Universidade de São Paulo (HCFMRP – USP).
+Nos diversos experimentos executados durante o desenvolvimento da ferramenta, foram utilizadas imagens médicas de tomografia computadorizada pulmonar cedidas pelo Hospital das Clínicas da Faculdade de Medicina de Ribeirão Preto da Universidade de São Paulo.
 
 \section{Linguagens de programação}
 
@@ -119,7 +119,6 @@ Para identificar os pulmões primeiro verifica-se quantas regiões conectadas ex
 \subsection{Recuperação de imagens baseada em conteúdo}
 
 Primeiramente foi necessário escolher as características a serem utilizadas para o cálculo de similaridade, as quais foram energia, entropia, correlação, constraste e momento diferencial inverso.
-% TODO: pq foram estas escolhidas?
 
 Com isso é preciso que a RNA tenha 10 nodos de entrada, 5 para cada vetor de características. E como a saída da RNA é o valor de similaridade, ela possui apenas um nodo de saída. Para que tenhamos um valor entre 0 e 1 na saída, foi utilizada a seguinte função sigmóide:
 
