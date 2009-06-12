@@ -1,0 +1,141 @@
+#main {
+	width: 1000px;
+	margin: auto;
+}
+
+#header {
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#evaluation {
+	margin-bottom: 20px;
+}
+
+#footer {
+	text-align: center;
+}
+
+#uploader {
+	margin-bottom: 10px;
+}
+
+#retrieval {
+	margin-top: 30px;
+}
+
+#main-image {
+	float: left;
+	margin-right: 30px;
+}
+
+#left-lung {
+	float: left;
+	width: 120px;
+	margin-right: 10px;
+}
+
+#segmented-lungs {
+	margin-top: 10px;
+}
+
+#segmented-lungs select {
+	width: 120px;
+	margin-top:5px;
+}
+
+#segmented-lungs img.selected {
+	border: 3px solid blue;
+	padding: 0px;
+}
+
+#segmented-lungs img {
+	padding: 3px;
+}
+
+.retrieved-image {
+	float: left;
+	width: 160px;
+	margin: 0 5px 10px;
+}
+
+.retrieved-image img {
+	float: left;
+}
+
+.retrieved-image .RWbuttons {
+	height: 120px;
+	width:30px;
+	margin-left:125px;
+	position: relative;
+}
+
+.RWbuttons .button {
+	width: 30px;
+	height: 30px;
+}
+
+.RWbuttons .right {
+	position: relative;
+	top: 25px;
+}
+
+.RWbuttons .right.on{
+	background-image: url(images/right.png);
+}
+
+.RWbuttons .right.off{
+	background-image: url(images/rightGrey.png);
+
+}
+.RWbuttons .wrong {
+	position: absolute;
+	bottom: 25px;
+	right: 0px;
+}
+
+.RWbuttons .wrong.on{
+	background-image: url(images/wrong.png);
+}
+
+.RWbuttons .wrong.off{
+	background-image: url(images/wrongGrey.png);
+}
+
+.radiobutton span {
+	display: block;
+}
+
+.radiobutton {
+	display: inline;
+}
+
+.center {
+	width: auto;
+	margin: auto;
+	text-align: center;
+}
+
+.center_help {
+	text-align: left;
+}
+
+.evaluation-mode.off {
+	display: none;
+}
+
+#texticulo {
+	padding-top:20px;
+	padding-left: 120px;
+	height: 80px;
+	background: url(images/ufpel.gif) no-repeat;
+	margin-bottom: 20px;
+}
+
+.break {
+	clear: both;
+}
+
+h1 {
+	margin: 10px;
+}
