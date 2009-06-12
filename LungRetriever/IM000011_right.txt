@@ -1,0 +1,5 @@
+energy:0.168995
+entropy:5.183266
+inverseDifferenceMoment:0.597459
+contrast:44.518487
+correlation:430483.971909
