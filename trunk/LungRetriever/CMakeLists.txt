@@ -14,3 +14,12 @@ ENDIF(ITK_FOUND)
 ADD_EXECUTABLE(Segmentation Segmentation.cpp main.cpp)
 
 TARGET_LINK_LIBRARIES(Segmentation ITKCommon ITKIO ITKStatistics)
+
+ADD_EXECUTABLE(Coach coach.c)
+TARGET_LINK_LIBRARIES(Coach fann m)
+
+ADD_EXECUTABLE(SimilarityCalculator similarityCalculator.c)
+TARGET_LINK_LIBRARIES(SimilarityCalculator fann m)
+
+ADD_EXECUTABLE(FineTuner fineTuner.c)
+TARGET_LINK_LIBRARIES(FineTuner fann m)
