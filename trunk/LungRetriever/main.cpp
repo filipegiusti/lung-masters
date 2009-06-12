@@ -245,6 +245,26 @@ void invertBinaryValues(ImageTypeInt *image) {
 	}
 }
 
+void decodeCharactheristic(int x, char name[]) {
+	switch(x) {
+		case 0:
+			strcpy(name, "energy");
+			break;
+		case 1:
+			strcpy(name, "entropy");
+			break;
+		case 3:
+			strcpy(name, "inverseDifferenceMoment");
+			break;
+		case 4:
+			strcpy(name, "contrast");
+			break;
+		case 7:
+			strcpy(name, "correlation");
+			break;
+	}
+}
+
 int main (int argc, char *argv[]) {
 	if (argc != 2) {
 		printf("Usage: Segment filename");
@@ -559,7 +579,9 @@ int main (int argc, char *argv[]) {
 		
 		unsigned long size = calc->GetFeatureMeans()->Size();
 		for(x = 0; x < size; x++) {
-			fprintf(fp, "%d: %f\n",calc->GetRequestedFeatures()->GetElement(x), calc->GetFeatureMeans()->GetElement(x));
+			char charactheristic[100];
+			decodeCharactheristic(calc->GetRequestedFeatures()->GetElement(x), charactheristic);
+			fprintf(fp, "%s:%f\n", charactheristic, calc->GetFeatureMeans()->GetElement(x));
 		}
 		fclose(fp);
 		
@@ -576,7 +598,9 @@ int main (int argc, char *argv[]) {
 		
 		size = calc->GetFeatureMeans()->Size();
 		for(x = 0; x < size; x++) {
-			fprintf(fp, "%d: %f\n",calc->GetRequestedFeatures()->GetElement(x), calc->GetFeatureMeans()->GetElement(x));
+			char charactheristic[100];
+			decodeCharactheristic(calc->GetRequestedFeatures()->GetElement(x), charactheristic);
+			fprintf(fp, "%s:%f\n", charactheristic, calc->GetFeatureMeans()->GetElement(x));
 		}
 	}
 	return 0;
