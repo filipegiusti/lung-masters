@@ -9,6 +9,7 @@
         <itemPath>LungRetriever/main.cpp</itemPath>
         <itemPath>LungRetriever/Segmentation.cpp</itemPath>
         <itemPath>LungRetriever/Segmentation.hpp</itemPath>
+        <itemPath>utils.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -22,6 +23,7 @@
     <conf name="Default" type="0">
       <toolsSet>
         <compilerSet>GNU|GNU</compilerSet>
+        <cRequired>true</cRequired>
         <platform>2</platform>
       </toolsSet>
       <makefileType>
@@ -32,33 +34,19 @@
           <executablePath>LungRetriever/Segmentation</executablePath>
           <cCompilerTool>
             <includeDirectories>
-              <directoryPath>/usr/include/InsightToolkit</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/Common</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/IO</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/Utilities</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/Algorithms</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/BasicFilters</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/gdcm</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/Numerics</directoryPath>
-              <directoryPath>/usr/include/c++/4.3</directoryPath>
-              <directoryPath>/usr/include/c++/4.3.1</directoryPath>
-              <directoryPath>/usr/lib</directoryPath>
+              <directoryPath>/usr/include</directoryPath>
             </includeDirectories>
           </cCompilerTool>
           <ccCompilerTool>
             <includeDirectories>
               <directoryPath>/usr/include/InsightToolkit</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/Common</directoryPath>
               <directoryPath>/usr/include/InsightToolkit/IO</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/Utilities</directoryPath>
+              <directoryPath>/usr/include/InsightToolkit/Common</directoryPath>
+              <directoryPath>/usr/include/InsightToolkit/Numerics/Statistics</directoryPath>
               <directoryPath>/usr/include/InsightToolkit/Algorithms</directoryPath>
               <directoryPath>/usr/include/InsightToolkit/BasicFilters</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/gdcm</directoryPath>
-              <directoryPath>/usr/include/InsightToolkit/Numerics</directoryPath>
-              <directoryPath>/usr/include/c++/4.3</directoryPath>
-              <directoryPath>/usr/include/c++/4.3.1</directoryPath>
-              <directoryPath>/usr/lib</directoryPath>
             </includeDirectories>
+            <inheritIncValues>false</inheritIncValues>
           </ccCompilerTool>
         </makeTool>
         <requiredProjects>
@@ -74,6 +62,9 @@
         <itemTool>3</itemTool>
       </item>
       <item path="LungRetriever/main.cpp">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="utils.cpp">
         <itemTool>1</itemTool>
       </item>
     </conf>
