@@ -1,0 +1,1 @@
+Lung segmentation, extraction of the image characteristics and classification for retrieval using neural networks.
